@@ -13,6 +13,7 @@
     <main>
         <section class="intro">
             <h2>Accédez à votre compte</h2>
+            <h2>HELLO GIT</h2>
             <p>Connectez-vous pour accéder à votre espace personnel et gérer vos projets.</p>
             <a href="login.php" class="btn">Se connecter</a>
         </section>
