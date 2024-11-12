@@ -24,6 +24,7 @@ if (!isset($_SESSION['login'])) {
                 <?php echo ($_SESSION['role_name'] . " et sa description " . $_SESSION['role_description']); ?>.</p>
             <!-- <a href="logout.php" class="btn">Déconnexion</a> -->
             <a href="catalog/catalog.php" class="btn">Affichage des catalogue</a>
+            <a href="catalog/catalog.php" class="btn">TEST DE GIT DE HOUDA</a>
         </section>
     </main>
 
