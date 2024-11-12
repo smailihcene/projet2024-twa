@@ -49,6 +49,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 
     mysqli_close($con);
     // $con->close();
+    //TEST TK
 }
 
 ?>
