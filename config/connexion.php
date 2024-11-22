@@ -12,4 +12,10 @@ $dbConn = array(
     "host" => "localhost" // Hôte, souvent localhost pour les serveurs locaux
 );
 
+$con = new mysqli($dbConn['host'], $dbConn['user'], $dbConn['pass'], $dbConn['name']);
+
+if (!$con) {
+    die("Échec de la connexion à la base de données : " . mysqli_connect_error());
+}
+
 ?>

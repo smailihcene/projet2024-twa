@@ -40,7 +40,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         $_SESSION['role_description'] = $user_data['role_description'];
 
         // Redirection vers la page de bienvenue
-        header("Location: bienvenu.php");
+        header("Location: bienvenue.php");
         exit();
     } else {
         // Message d'erreur si les informations sont incorrectes
@@ -49,7 +49,6 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 
     mysqli_close($con);
     // $con->close();
-    //TEST TK
 }
 
 ?>

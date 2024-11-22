@@ -23,8 +23,14 @@ if (!isset($_SESSION['login'])) {
             <p>Vous êtes connecté en tant que 
                 <?php echo ($_SESSION['role_name'] . " et sa description " . $_SESSION['role_description']); ?>.</p>
             <!-- <a href="logout.php" class="btn">Déconnexion</a> -->
-            <a href="catalog/catalog.php" class="btn">Affichage des catalogue</a>
-            <a href="catalog/catalog.php" class="btn">TEST DE GIT DE HOUDA</a>
+            <div class="row">
+                <div class="col mb-3">
+                    <a href="logout.php" class="btn btn-primary w-100">Déconnexion</a>
+                </div>
+                <div class="col mb-3">
+                    <a href="catalog/catalog.php" class="btn btn-primary w-100">Affichage des catalogues</a>
+                </div>
+            </div>
         </section>
     </main>
 
