@@ -9,10 +9,7 @@ if (!isset($_SESSION['login'])) {
 
 require('../config/connexion.php');
 
-
-// $query = "SELECT * FROM catalog";
 $rep = mysqli_query($con, "SELECT * FROM catalog");
-
 if (!$rep) {
     die("Erreur lors de la récupération des catalogues : " . mysqli_error($con));
 }
@@ -31,15 +28,19 @@ if (!$rep) {
     </header>
     <main>
         <section class="container">
-            <p>Votre rôle : <?php echo ($_SESSION['role_name']); ?></p>
-
             <h2>Catalogue</h2>
+            <?php if ($_SESSION['role_name'] === 'editor') { ?>
+            <a href="ajouter_catalog.php">Ajouter</a>
+            <?php } ?>
             <table border="2">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nom</th>
                         <th>Description</th>
+                        <?php if ($_SESSION['role_name'] === 'editor') { ?>
+                        <th>Actions</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,16 +49,18 @@ if (!$rep) {
                             <td><?php echo ($catalog['id']); ?></td>
                             <td><?php echo ($catalog['name']); ?></td>
                             <td><?php echo ($catalog['description']); ?></td>
+                            <?php if ($_SESSION['role_name'] === 'editor') { ?>
+                            <td>
+                                <a href="editer_catalog.php?id=<?php echo $catalog['id']; ?>">Modifier</a>
+                                <a href="supprimer_catalog.php?id=<?php echo $catalog['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce catalogue ?')">Supprimer</a>
+                            </td>
+                            <?php } ?>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
-
         </section>
     </main>
 </body>
 </html>
-<?php
-
-mysqli_close($con);
-?>
+<?php mysqli_close($con); ?>
