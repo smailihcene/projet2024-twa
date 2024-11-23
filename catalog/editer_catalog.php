@@ -37,7 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
+ <!-- inclure la navbar -->
+ <?php include '../navbar.php'; ?> 
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>

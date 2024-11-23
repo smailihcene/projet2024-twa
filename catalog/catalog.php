@@ -14,7 +14,8 @@ if (!$rep) {
     die("Erreur lors de la récupération des catalogues : " . mysqli_error($con));
 }
 ?>
-
+<!-- inclure la navbar -->
+     <?php include "../navbar.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +24,11 @@ if (!$rep) {
     <title>Catalogue</title>
 </head>
 <body>
+     
     <header>
         <h1>Bienvenue, <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?> !</h1>
     </header>
+
     <main>
         <section class="container">
             <h2>Catalogue</h2>

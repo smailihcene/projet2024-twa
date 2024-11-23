@@ -49,6 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
         <h1>Ajouter un Catalogue</h1>
     </header>
+     <!-- inclure la navbar -->
+     <?php include '../navbar.php'; ?> 
     <main>
         <form action="ajouter_catalog.php" method="POST">
             <label for="name">Nom :</label>
