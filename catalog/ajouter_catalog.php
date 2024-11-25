@@ -1,33 +1,23 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-// Vérifiez si l'utilisateur est connecté
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
 }
 
-
 require('../config/connexion.php');
 
 // Traitement de l'ajout
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer les données du formulaire
     $name = mysqli_real_escape_string($con, $_POST['name']);
     $description = mysqli_real_escape_string($con, $_POST['description']);
     $userAccoundId = 1;
-    
-    
-    // Vérifier que les champs ne sont pas vides
+
     if (!empty($name) && !empty($description)) {
-        // Préparer la requête d'ajout avec userAccountId
         $query = "INSERT INTO catalog (userAccoundId, name, description) VALUES ('$userAccoundId', '$name', '$description')";
-        
+
         if (mysqli_query($con, $query)) {
-            // Redirection après succès
             header("Location: catalog.php");
             exit();
         } else {
@@ -43,25 +33,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Ajouter un Catalogue</title>
 </head>
 <body>
-    <header>
-        <h1>Ajouter un Catalogue</h1>
-    </header>
-     <!-- inclure la navbar -->
-     <?php include '../navbar.php'; ?> 
-    <main>
-        <form action="ajouter_catalog.php" method="POST">
-            <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" required>
-            <br>
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" required></textarea>
-            <br>
-            <button type="submit">Ajouter</button>
+    <?php include '../navbar.php'; ?>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Ajouter un Catalogue</h1>
+        <form action="ajouter_catalog.php" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nom :</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description :</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Ajouter</button>
+            <a href="catalog.php" class="btn btn-secondary">Annuler</a>
         </form>
-    </main>
+    </div>
 </body>
 </html>
 

@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = mysqli_real_escape_string($con, $_POST['name']);
     $description = mysqli_real_escape_string($con, $_POST['description']);
-    
+
     $updateQuery = "UPDATE catalog SET name = '$name', description = '$description' WHERE id = $id";
     if (mysqli_query($con, $updateQuery)) {
         header("Location: catalog.php");
@@ -37,31 +37,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
- <!-- inclure la navbar -->
- <?php include '../navbar.php'; ?> 
-    
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Modifier un Catalogue</title>
 </head>
 <body>
-    <header>
-        <h1>Modifier le Catalogue</h1>
-    </header>
-    <main>
-        <form action="editer_catalog.php?id=<?php echo $catalog['id']; ?>" method="POST">
-            <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($catalog['name']); ?>" required>
-            <br>
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" required><?php echo htmlspecialchars($catalog['description']); ?></textarea>
-            <br>
-            <button type="submit">Mettre à jour</button>
+    <?php include '../navbar.php'; ?>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Modifier le Catalogue</h1>
+        <form action="editer_catalog.php?id=<?= htmlspecialchars($catalog['id']); ?>" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nom :</label>
+                <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($catalog['name']); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description :</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required><?= htmlspecialchars($catalog['description']); ?></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+            <a href="catalog.php" class="btn btn-secondary">Annuler</a>
         </form>
-    </main>
+    </div>
 </body>
 </html>
+
 <?php mysqli_close($con); ?>
