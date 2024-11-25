@@ -45,10 +45,13 @@
 					<a class="nav-link active" href="/projet2024-twa/catalog/catalog.php"> <i>Catalogue</i> </a>
 				</li>
 
+				<?php if ($_SESSION['role_name'] === 'editor') { ?>
 				<li class="nav-item">
 					<!-- mise en place dans cet élément d'un lien vers... ce qu'on veut. Ici vers la même page. -->
 					<a class="nav-link active" href="/projet2024-twa/affichage_img.php"> <i>Image</i> </a>
 				</li>
+				<?php } ?>
+
 
 				<li class="nav-item">
 					<!-- mise en place dans cet élément d'un lien vers... ce qu'on veut. Ici vers la même page. -->

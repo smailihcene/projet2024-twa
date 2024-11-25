@@ -7,7 +7,7 @@ if (!isset($_SESSION['login'])) {
 
 require('config/connexion.php');
 
-$query_path = "SELECT b.dir AS bank_dir, i.name AS image_name
+$query_path = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name
          FROM image AS i 
          INNER JOIN bank AS b ON i.bankId = b.id;";
 
@@ -28,14 +28,14 @@ if (!$rep) {
     <h1>Liste des Images</h1>
     <table border="2">
         <tr>
-            <th>Banque</th>
+            <th>Nom banque </th>
             <th>Image</th>
         </tr>
 
         <!-- Boucle pour afficher les résultats -->
         <?php while ($image = mysqli_fetch_assoc($rep)) { ?>
             <tr>
-                <td><?= htmlspecialchars($image['bank_dir']); ?></td>
+                <td><?= htmlspecialchars($image['bank_name']); ?></td>
                 <td><img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt="" width="100"></td>
             </tr>
         <?php } ?>
