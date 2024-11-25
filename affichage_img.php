@@ -7,14 +7,6 @@ if (!isset($_SESSION['login'])) {
 
 require('config/connexion.php');
 
-$fileName = $_FILES['image']['name'];
-$image_path = "./images" . $bank_dir . "/" . $fileName;
-
-
-$query = "SELECT i.id, i.name AS image_path, b.name AS bank_name 
-        FROM Image i 
-        JOIN Bank b ON i.bankId = b.id";
-
 $query_path = "SELECT b.dir AS bank_dir, i.name AS image_name
          FROM image AS i 
          INNER JOIN bank AS b ON i.bankId = b.id;";
@@ -29,8 +21,10 @@ if (!$rep) {
 <head>
     <meta charset="UTF-8">
     <title>Gestion des Images</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<?php include 'navbar.php'; ?>
     <h1>Liste des Images</h1>
     <table border="2">
         <tr>

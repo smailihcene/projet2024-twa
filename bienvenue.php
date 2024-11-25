@@ -7,7 +7,7 @@ if (!isset($_SESSION['login'])) {
 ?>
 <?php $varchemin = "./catalog/catalog.php" ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">

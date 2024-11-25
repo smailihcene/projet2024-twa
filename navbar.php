@@ -47,6 +47,11 @@
 
 				<li class="nav-item">
 					<!-- mise en place dans cet élément d'un lien vers... ce qu'on veut. Ici vers la même page. -->
+					<a class="nav-link active" href="/projet2024-twa/affichage_img.php"> <i>Image</i> </a>
+				</li>
+
+				<li class="nav-item">
+					<!-- mise en place dans cet élément d'un lien vers... ce qu'on veut. Ici vers la même page. -->
 					<a class="nav-link active" href="/projet2024-twa/logout.php"> <i> <u> Se déconnecter </u> </i> </a>
 				</li>
 
