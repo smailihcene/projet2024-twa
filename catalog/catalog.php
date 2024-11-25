@@ -14,17 +14,20 @@ if (!$rep) {
     die("Erreur lors de la récupération des catalogues : " . mysqli_error($con));
 }
 ?>
+<?php $varchemin = "/projet2024-twa/catalog/catalog.php" ?>
 <!-- inclure la navbar -->
-     <?php include "../navbar.php"; ?>
+<?php include "../navbar.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <title>Catalogue</title>
 </head>
+
 <body>
-     
+
     <header>
         <h1>Bienvenue, <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?> !</h1>
     </header>
@@ -33,7 +36,7 @@ if (!$rep) {
         <section class="container">
             <h2>Catalogue</h2>
             <?php if ($_SESSION['role_name'] === 'editor') { ?>
-            <a href="ajouter_catalog.php">Ajouter</a>
+                <a href="ajouter_catalog.php">Ajouter</a>
             <?php } ?>
             <table border="2">
                 <thead>
@@ -42,7 +45,7 @@ if (!$rep) {
                         <th>Nom</th>
                         <th>Description</th>
                         <?php if ($_SESSION['role_name'] === 'editor') { ?>
-                        <th>Actions</th>
+                            <th>Actions</th>
                         <?php } ?>
                     </tr>
                 </thead>
@@ -53,10 +56,10 @@ if (!$rep) {
                             <td><?php echo ($catalog['name']); ?></td>
                             <td><?php echo ($catalog['description']); ?></td>
                             <?php if ($_SESSION['role_name'] === 'editor') { ?>
-                            <td>
-                                <a href="editer_catalog.php?id=<?php echo $catalog['id']; ?>">Modifier</a>
-                                <a href="supprimer_catalog.php?id=<?php echo $catalog['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce catalogue ?')">Supprimer</a>
-                            </td>
+                                <td>
+                                    <a href="editer_catalog.php?id=<?php echo $catalog['id']; ?>">Modifier</a>
+                                    <a href="supprimer_catalog.php?id=<?php echo $catalog['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce catalogue ?')">Supprimer</a>
+                                </td>
                             <?php } ?>
                         </tr>
                     <?php } ?>
@@ -65,5 +68,6 @@ if (!$rep) {
         </section>
     </main>
 </body>
+
 </html>
 <?php mysqli_close($con); ?>

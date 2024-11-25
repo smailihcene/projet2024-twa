@@ -5,24 +5,26 @@ if (!isset($_SESSION['login'])) {
     exit();
 }
 ?>
-
+<?php $varchemin = "./catalog/catalog.php" ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Bienvenue</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <!-- inclure la navbar -->
-     <?php include 'navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
     <header>
-        <h1>Bienvenue, 
+        <h1>Bienvenue,
             <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?> !</h1>
     </header>
     <main>
         <section class="container">
-            <p>Vous êtes connecté en tant que 
+            <p>Vous êtes connecté en tant que
                 <?php echo ($_SESSION['role_name'] . " et sa description " . $_SESSION['role_description']); ?>.</p>
             <!-- <a href="logout.php" class="btn">Déconnexion</a> -->
             <div class="row">
@@ -37,4 +39,5 @@ if (!isset($_SESSION['login'])) {
     </main>
 
 </body>
+
 </html>
