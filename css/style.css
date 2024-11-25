@@ -63,6 +63,17 @@ main {
     margin-bottom: 1em;
 }
 
+/*Formulaire d'inscription*/
+.container2 {
+    margin: 50px auto; /* Centrer la section */
+    max-width: 600px; /* Largeur maximale */
+    padding: 20px; /* Espacement interne */
+    background-color: black; /* Fond blanc */
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+
 /* Formulaires */
 form label {
     display: block;

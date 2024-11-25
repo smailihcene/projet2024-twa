@@ -14,7 +14,7 @@ if (!$rep) {
     die("Erreur lors de la récupération des catalogues : " . mysqli_error($con));
 }
 ?>
-<?php $varchemin = "/projet2024-twa/catalog/catalog.php" ?>
+
 <!-- inclure la navbar -->
 <?php include "../navbar.php"; ?>
 <!DOCTYPE html>

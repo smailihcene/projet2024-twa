@@ -37,17 +37,17 @@
 				<!-- ouverture d'un deuxième élément de liste. Cette fois-ci il s'agit d'un élément classique. Si notre possédait plusieurs rubriques alors nous utiliserions plusieurs éléments comme celui-ci. La classe nv-item indique bien un élément de navigation 🤓 -->
 				<li class="nav-item">
 					<!-- mise en place dans cet élément d'un lien vers... ce qu'on veut. Ici vers la même page. -->
-					<a class="nav-link active" href="./bienvenue.php"><i class="bi bi-house-fill"> Acceuil </i></a>
+					<a class="nav-link active" href="/projet2024-twa/bienvenue.php" ><i class="bi bi-house-fill"> Acceuil </i></a>
 				</li>
 
 				<li class="nav-item">
 					<!-- mise en place dans cet élément d'un lien vers... ce qu'on veut. Ici vers la même page. -->
-					<a class="nav-link active" href="<?php print($varchemin) ?>"> <i>Catalogue</i> </a>
+					<a class="nav-link active" href="/projet2024-twa/catalog/catalog.php"> <i>Catalogue</i> </a>
 				</li>
 
 				<li class="nav-item">
 					<!-- mise en place dans cet élément d'un lien vers... ce qu'on veut. Ici vers la même page. -->
-					<a class="nav-link active" href="./logout.php"> <i> <u> Se déconnecter </u> </i> </a>
+					<a class="nav-link active" href="/projet2024-twa/logout.php"> <i> <u> Se déconnecter </u> </i> </a>
 				</li>
 
 			</ul>

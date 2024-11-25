@@ -15,9 +15,19 @@
             <h2>Accédez à votre compte</h2>
             
             <p>Connectez-vous pour accéder à votre espace personnel.</p>
-            <a href="login.php" class="btn">Se connecter</a>
+            <a href="login.php" class="btn link">Se connecter</a>
+            <p>Si vous n'avez pas de compte.</p>
+            <a href="formulaire.php" class="btn link">S'inscrire</a>
+
         </section>
     </main>
+
+    <style>
+        .link:hover{
+            color: black; /* Rouge par exemple */
+            font-weight: bold; /* Optionnel : mettre en gras */
+        }
+    </style>
 
 </body>
 </html>
