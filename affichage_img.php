@@ -39,7 +39,7 @@ if (!$rep) {
                 <tr>
                     <td><?= htmlspecialchars($image['bank_name']); ?></td>
                     <td>
-                        <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt="Image" class="img-thumbnail" width="100">
+                        <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt="" class="img-thumbnail" width="100">
                     </td>
                 </tr>
             <?php } ?>

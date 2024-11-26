@@ -1,111 +1,13 @@
-/* Style global */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
 
-body {
-    background-color: #f3f4f6;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* En-tête */
-header {
-    width: 100%;
-    text-align: center;
-    padding: 2em;
-    background-color: #4a90e2;
-    color: #fff;
-}
-
-header h1 {
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-header p {
-    font-size: 1.2em;
-}
-
-/* Section principale */
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2em;
-    width: 100%;
-}
-
-.container {
-    background-color: #fff;
-    padding: 2em;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
-}
-
-.container h2 {
-    color: #4a90e2;
-    margin-bottom: 1em;
-}
-
-.container p {
-    color: #666;
-    margin-bottom: 1em;
-}
-
-/*Formulaire d'inscription*/
-.container2 {
-    margin: 50px auto; /* Centrer la section */
-    max-width: 600px; /* Largeur maximale */
-    padding: 20px; /* Espacement interne */
-    background-color: black; /* Fond blanc */
-    border: 1px solid #ccc; /* Bordure */
-    border-radius: 8px; /* Coins arrondis */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
-}
-
-/* Formulaires */
-form label {
-    display: block;
-    font-weight: bold;
-    color: #4a90e2;
-    margin: 1em 0 0.5em;
-}
-
-form input[type="text"],
-form input[type="password"] {
-    width: 100%;
-    padding: 0.8em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-form .btn {
-    display: inline-block;
-    width: 100%;
-    padding: 0.8em;
-    font-size: 1em;
-    color: #fff;
-    background-color: #4a90e2;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+.selectable-image {
     cursor: pointer;
+    transition: border 0.2s ease;
 }
-
-form .btn:hover {
-    background-color: #357ab8;
+.selected {
+    border: 3px solid green;
+    opacity: 0.8;
 }
-
+.position-label {
+    font-weight: bold;
+    color: #007bff;
+}
