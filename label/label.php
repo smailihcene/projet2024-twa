@@ -41,6 +41,7 @@ if (!$rep) {
                     <th>description</th>
                     <th>points</th>
                     <th>html</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +54,12 @@ if (!$rep) {
                         <td><?= htmlspecialchars($label['description']); ?></td>
                         <td><?= htmlspecialchars($label['points']); ?></td>
                         <td><?= htmlspecialchars($label['html']); ?></td>
+                        <td>
+                            <!-- Bouton Modifier -->
+                            <a href="editer_label.php?id=<?= $label['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
+                            <!-- Bouton Supprimer -->
+                            <a href="supprimer_label.php?id=<?= $label['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette étiquette ?')">Supprimer</a>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
