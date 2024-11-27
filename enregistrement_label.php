@@ -19,15 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = $con->real_escape_string($_POST['description'] ?? '');
     $html = $con->real_escape_string($_POST['html'] ?? '');
     $points = $con->real_escape_string($_POST['points'] ?? '');
+    $catalogId = $con->real_escape_string($_POST['catalog_id'] ?? ''); // Récupérer l'ID du catalogue
+    $imageId = $con->real_escape_string($_POST['image_id'] ?? '');
 
     // Vérification des champs obligatoires
-    if (empty($name) || empty($description) || empty($points)) {
+    if (empty($name) || empty($description) || empty($points) || empty($imageId)) {
         die("Erreur : Tous les champs requis ne sont pas remplis !");
     }
 
-    // Ajouter des valeurs pour catalogId et imageId (par défaut)
-    $catalogId = 16;
-    $imageId = 111;
+    // Récupérer l'ID de l'image (passé via le formulaire)
+    $imageId = $con->real_escape_string($_POST['image_id'] ?? '');
+    $catalogId = $con->real_escape_string($_POST['catalog_id'] ?? '');
+
 
     // Préparer la requête d'insertion
     $query = "INSERT INTO Label (catalogId, imageId, name, description, points, html) 
