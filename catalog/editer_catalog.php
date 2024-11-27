@@ -6,7 +6,7 @@ if (!isset($_SESSION['login'])) {
     exit();
 }
 
-require('../config/connexion.php');
+require('../db/connexion.php');
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);

@@ -11,7 +11,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
     // $mot_de_passe = "1234";
     // $nom_base_donnees = "projet2024";
 
-    require('config/connexion.php');
+    require('db/connexion.php');
 
     // Connexion à la base de données    
     $con = new mysqli($dbConn['host'], $dbConn['user'], $dbConn['pass'], $dbConn['name']);
@@ -53,7 +53,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">

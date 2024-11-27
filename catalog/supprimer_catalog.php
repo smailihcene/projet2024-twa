@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
     exit();
 }
 
-require('../config/connexion.php');
+require('../db/connexion.php');
 
 // Vérifier si un ID est passé pour la suppression
 if (isset($_GET['id'])) {

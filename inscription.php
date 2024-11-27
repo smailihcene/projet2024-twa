@@ -2,7 +2,7 @@
 
 <?php
 // Connexion à la base de données
-require('config/connexion.php');
+require('db/connexion.php');
 
 // Traitement des données du formulaire
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

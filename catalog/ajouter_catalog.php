@@ -6,7 +6,7 @@ if (!isset($_SESSION['login'])) {
     exit();
 }
 
-require('../config/connexion.php');
+require('../db/connexion.php');
 
 // Traitement de l'ajout du catalogue
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

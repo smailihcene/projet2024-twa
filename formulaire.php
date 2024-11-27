@@ -1,13 +1,13 @@
 <?php
 // Connexion à la base de données
-require('config/connexion.php');
+require('db/connexion.php');
 
 
 // Récupérer les rôles depuis la table userrole
 $query = "SELECT id, name FROM userrole";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" >

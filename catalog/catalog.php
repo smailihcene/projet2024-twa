@@ -5,7 +5,7 @@ if (!isset($_SESSION['login'])) {
     exit();
 }
 
-require('../config/connexion.php');
+require('../db/connexion.php');
 $rep = mysqli_query($con, "SELECT * FROM catalog");
 if (!$rep) {
     die("Erreur lors de la récupération des catalogues : " . mysqli_error($con));

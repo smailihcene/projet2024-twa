@@ -6,7 +6,7 @@ if (!isset($_SESSION['login'])) {
     exit();
 }
 
-require('../config/connexion.php');
+require('../db/connexion.php');
 
 // Récupérer les catalogues existants
 $query_catalogues = "SELECT id, name FROM catalog";

@@ -5,7 +5,7 @@ if (!isset($_SESSION['login'])) {
     exit();
 }
 
-require('config/connexion.php');
+require('db/connexion.php');
 $query_path = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name
                FROM image AS i 
                INNER JOIN bank AS b ON i.bankId = b.id;";
