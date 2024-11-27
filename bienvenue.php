@@ -1,13 +1,16 @@
 <?php
-session_start();
+session_start(); //on démarre une session
+
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
 }
+
+//Inclure la navbar qu'on a créé dans le fichier 'navbar.php'
+include "navbar.php";
 ?>
 
-<!-- Inclure la navbar -->
-<?php include "navbar.php"; ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">

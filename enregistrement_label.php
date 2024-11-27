@@ -1,14 +1,21 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require('db/connexion.php');
 
+$mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
+if (!$con) {
+    die("Échec de la connexion à la base de données : " . mysqli_connect_error());
+    //On vérifie si la connexion a échoué 
+}
+
 // Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données envoyées
-    $name = $mysqli->real_escape_string($_POST['name'] ?? '');
+   $name = $mysqli->real_escape_string($_POST['name'] ?? '');
     $description = $mysqli->real_escape_string($_POST['description'] ?? '');
     $html = $mysqli->real_escape_string($_POST['html'] ?? '');
     $points = $mysqli->real_escape_string($_POST['points'] ?? '');

@@ -1,5 +1,6 @@
 <?php
 // Connexion à la base de données
+require('db/connexion.php');
 $mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
 
 // Vérification de la connexion
