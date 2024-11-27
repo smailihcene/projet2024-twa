@@ -44,3 +44,18 @@ $(document).ready(function () {
         selectedOrder = order - 1; // Mettre à jour le compteur global
     }
 });
+
+$(document).ready(function () {
+    // Lorsque l'image est cliquée, ajouter un contour
+    $('.selectable-image').on('click', function () {
+        var checkbox = $(this).prev('input[type="checkbox"]');
+        checkbox.prop('checked', !checkbox.prop('checked'));
+
+        // Ajouter ou supprimer un contour vert
+        if (checkbox.prop('checked')) {
+            $(this).css('border', '2px solid green');
+        } else {
+            $(this).css('border', '');
+        }
+    });
+});
