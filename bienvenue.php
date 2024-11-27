@@ -18,25 +18,6 @@ if (!isset($_SESSION['login'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <title>Bienvenue</title>
-    <style>
-        body {
-            background-color: #f4f6f9; /* Fond doux */
-        }
-        h1 span {
-            color: #3498db; /* Couleur primaire pour le nom */
-        }
-        .btn-primary {
-            background-color: #3498db;
-            border-color: #3498db;
-        }
-        .btn-primary:hover {
-            background-color: #2980b9; /* Survol bouton */
-            border-color: #2980b9;
-        }
-        .text-muted {
-            font-size: 1.1rem;
-        }
-    </style>
 </head>
 
 <body>

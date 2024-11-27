@@ -12,7 +12,7 @@
 </head>
 <body>
     <!-- Header Section -->
-    <header class="bg-danger text-center py-5">
+    <header class="bg-custom text-center py-5">
             <h1 class="display-4">Bienvenue sur Projet2024</h1>
     </header>
 

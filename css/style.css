@@ -1,4 +1,58 @@
 
+/* page login.php */
+body {
+    background-color: #ecf0f1; /* Couleur de fond bleu clair */
+}
+header {
+    background-color: #231a76; /* Couleur du header */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-custom {
+    background-color: #277c4a; /* Couleur des boutons */
+    color: white;
+}
+.btn-custom:hover {
+    background-color: #1c5835; /* Couleur du bouton au survol */
+    color: white;
+}
+.form-control {
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.form-label {
+    font-weight: bold;
+}
+
+/*page bienvenu */
+body {
+    background-color: #f4f6f9; /* Fond doux */
+}
+h1 span {
+    color: #3498db; /* Couleur primaire pour le nom */
+}
+.btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+.btn-primary:hover {
+    background-color: #2980b9; /* Survol bouton */
+    border-color: #2980b9;
+}
+.text-muted {
+    font-size: 1.1rem;
+}
+
+/* pour la selection d'image dans la page ajouter_catalog.php */
 .selectable-image {
     cursor: pointer;
     transition: border 0.2s ease;
