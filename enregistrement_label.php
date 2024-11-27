@@ -15,10 +15,10 @@ if (!$con) {
 // Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données envoyées
-   $name = $mysqli->real_escape_string($_POST['name'] ?? '');
-    $description = $mysqli->real_escape_string($_POST['description'] ?? '');
-    $html = $mysqli->real_escape_string($_POST['html'] ?? '');
-    $points = $mysqli->real_escape_string($_POST['points'] ?? '');
+    $name = $con->real_escape_string($_POST['name'] ?? '');
+    $description = $con->real_escape_string($_POST['description'] ?? '');
+    $html = $con->real_escape_string($_POST['html'] ?? '');
+    $points = $con->real_escape_string($_POST['points'] ?? '');
 
     // Vérification des champs obligatoires
     if (empty($name) || empty($description) || empty($points)) {
@@ -33,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $query = "INSERT INTO Label (catalogId, imageId, name, description, points, html) 
               VALUES (?, ?, ?, ?, ?, ?)";
 
-    $stmt = $mysqli->prepare($query);
+    $stmt = $con->prepare($query);
 
     if (!$stmt) {
-        die("Erreur lors de la préparation de la requête : " . $mysqli->error);
+        die("Erreur lors de la préparation de la requête : " . $con->error);
     }
 
     // Lier les paramètres à la requête
@@ -55,5 +55,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Méthode HTTP non autorisée.";
 }
 
-$mysqli->close();
+$con->close();
 ?>

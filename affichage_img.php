@@ -6,9 +6,13 @@ if (!isset($_SESSION['login'])) {
 }
 
 require('db/connexion.php');
-$query_path = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name, i.id AS image_id
-               FROM image AS i 
-               INNER JOIN bank AS b ON i.bankId = b.id;";
+$query_path = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name,
+ i.id AS image_id, c.name AS catalog_name
+            FROM image AS i
+            INNER JOIN bank AS b ON i.bankId = b.id
+            INNER JOIN CatalogImage AS ci ON ci.imageId = i.id
+            INNER JOIN Catalog AS c ON ci.catalogId = c.id;";
+
 $rep = mysqli_query($con, $query_path);
 if (!$rep) {
     die("Erreur lors de la récupération des images : " . mysqli_error($con));
@@ -36,6 +40,7 @@ if (!$rep) {
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Nom Catalogue</th>
                     <th>Nom de la Banque</th>
                     <th>Image</th>
                     <th>Actions</th>
@@ -44,6 +49,7 @@ if (!$rep) {
             <tbody>
                 <?php while ($image = mysqli_fetch_assoc($rep)) { ?>
                     <tr>
+                        <td><?= htmlspecialchars($image['catalog_name']); ?></td>
                         <td><?= htmlspecialchars($image['bank_name']); ?></td>
                         <td>
                             <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt="" class="img-thumbnail" width="100">
