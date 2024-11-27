@@ -23,11 +23,10 @@
               <i class="bi bi-house-fill"> Accueil</i>
             </a>
           </li>
+          <?php if ($_SESSION['role_name'] === 'editor') { ?>
           <li class="nav-item">
             <a class="nav-link" href="/projet2024-twa/catalog/catalog.php">Catalogue</a>
           </li>
-
-          <?php if ($_SESSION['role_name'] === 'editor') { ?>
           <li class="nav-item">
             <a class="nav-link" href="/projet2024-twa/affichage_img.php">Image</a>
           </li>
