@@ -9,7 +9,7 @@ session_destroy(); //ça détrit completement la sessione et permet de déconnec
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">  <!-- le contenue principal de cette pa
+<html lang="fr">  <!-- le contenue principal de cette pa -->
 <head>
     <meta charset="UTF-8">
     <title>Déconnexion</title>
@@ -24,7 +24,8 @@ session_destroy(); //ça détrit completement la sessione et permet de déconnec
         <section class="container">
             <p>Vous avez été déconnecté avec succès.</p>
             <p>Pour se rediriger vers la page d'accueil, <a href="index.php">cliquez ici</a>.</p>
-            <!-- 
+            
+            
         </section>
     </main>
  
