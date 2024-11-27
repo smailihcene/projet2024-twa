@@ -36,6 +36,7 @@ if (!$rep) {
                     <th>ID</th>
                     <th>Nom</th>
                     <th>Description</th>
+                    <th>Image</th> <!-- Nouvelle colonne pour afficher l'image -->
                     <?php if ($_SESSION['role_name'] === 'editor') { ?>
                         <th>Actions</th>
                     <?php } ?>
@@ -47,6 +48,13 @@ if (!$rep) {
                         <td><?= htmlspecialchars($catalog['id']); ?></td>
                         <td><?= htmlspecialchars($catalog['name']); ?></td>
                         <td><?= htmlspecialchars($catalog['description']); ?></td>
+                        <td>
+                            <?php if (!empty($catalog['image'])) { ?>
+                                <img src="<?= 'path/to/images/' . htmlspecialchars($catalog['image']); ?>" alt="Image du catalogue" width="100" height="100">
+                            <?php } else { ?>
+                                <span>Aucune image</span>
+                            <?php } ?>
+                        </td>
                         <?php if ($_SESSION['role_name'] === 'editor') { ?>
                             <td>
                                 <a href="editer_catalog.php?id=<?= $catalog['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>

@@ -19,17 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = htmlspecialchars($_POST['password']);
     $userRoleId = intval($_POST['userRoleId']); // Convertir en entier
 
-    // Affichage des données pour le débogage
-    // echo "<pre>";
-    // print_r([
-    //     'userRoleId' => $userRoleId,
-    //     'login' => $login,
-    //     'firstname' => $firstname,
-    //     'lastname' => $lastname,
-    //     'email' => $email,
-    //     'password' => $password
-    // ]);
-    // echo "</pre>";
+    
 
     // Validation des champs
     if (!empty($firstname) && !empty($lastname) && !empty($email) && !empty($login) && !empty($password) && !empty($userRoleId)) {
