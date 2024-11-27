@@ -1,9 +1,18 @@
 <?php
-session_start();
+session_start(); //on démarre une session
+
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
 }
+<<<<<<< HEAD
+
+//Inclure la navbar qu'on a créé dans le fichier 'navbar.php'
+include "navbar.php";
+?>
+
+
+=======
 
 require('db/connexion.php');
 
@@ -27,6 +36,7 @@ while ($row = mysqli_fetch_assoc($result_images)) {
 }
 
 ?>
+>>>>>>> 4fcf9cf77ce74be3f809692d4982c93a454bab03
 
 <!DOCTYPE html>
 <html lang="fr">

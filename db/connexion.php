@@ -1,11 +1,6 @@
 <?php
 // Informations de connexion à la base de données
 $dbConn = array(
-    // $nom_serveur = "localhost";
-    // $utilisateur = "user";
-    // $mot_de_passe = "1234";
-    // $nom_base_donnees = "projet2024";
-
     "user" => "user",  // Votre utilisateur
     "pass" => "1234",       // Mot de passe, laissé vide ici
     "name" => "projet2024",    // Nom de la base de données
@@ -14,6 +9,7 @@ $dbConn = array(
 
 $con = new mysqli($dbConn['host'], $dbConn['user'], $dbConn['pass'], $dbConn['name']);
 
-if (!$con) {
+if (!$con) {  //quand la connexion à la base de donnée
     die("Échec de la connexion à la base de données : " . mysqli_connect_error());
+    //Quand ça échoue la fonction die renvoie ce message et grâce à "mysqli_connect_error()" on a l'affichage de l'erreur spécifié 
 }

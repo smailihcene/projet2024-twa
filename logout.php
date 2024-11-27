@@ -3,12 +3,13 @@
 session_start();
 
 // Détruire la session pour déconnecter l'utilisateur
-session_unset();
-session_destroy();
+session_unset(); //supprime les varibales de la session mais conserve la session 
+session_destroy(); //ça détrit completement la sessione et permet de déconnecter l'utilisateur 
+
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr">  <!-- le contenue principal de cette pa
 <head>
     <meta charset="UTF-8">
     <title>Déconnexion</title>
@@ -22,8 +23,8 @@ session_destroy();
     <main>
         <section class="container">
             <p>Vous avez été déconnecté avec succès.</p>
-            <!--<p>Vous allez être redirigé vers la page d'accueil dans quelques secondes.</p>-->
             <p>Pour se rediriger vers la page d'accueil, <a href="index.php">cliquez ici</a>.</p>
+            <!-- 
         </section>
     </main>
  

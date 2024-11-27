@@ -1,9 +1,16 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require('db/connexion.php');
+
+$mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
+if (!$con) {
+    die("Échec de la connexion à la base de données : " . mysqli_connect_error());
+    //On vérifie si la connexion a échoué 
+}
 
 // Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -12,8 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = $con->real_escape_string($_POST['description'] ?? '');
     $html = $con->real_escape_string($_POST['html'] ?? '');
     $points = $con->real_escape_string($_POST['points'] ?? '');
-    $catalogId = $con->real_escape_string($_POST['points'] ?? '');
-
 
     // Vérification des champs obligatoires
     if (empty($name) || empty($description) || empty($points)) {
