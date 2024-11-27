@@ -5,7 +5,7 @@ $dbConn = array(
     // $utilisateur = "user";
     // $mot_de_passe = "1234";
     // $nom_base_donnees = "projet2024";
-    
+
     "user" => "user",  // Votre utilisateur
     "pass" => "1234",       // Mot de passe, laissé vide ici
     "name" => "projet2024",    // Nom de la base de données
@@ -17,5 +17,3 @@ $con = new mysqli($dbConn['host'], $dbConn['user'], $dbConn['pass'], $dbConn['na
 if (!$con) {
     die("Échec de la connexion à la base de données : " . mysqli_connect_error());
 }
-
-?>

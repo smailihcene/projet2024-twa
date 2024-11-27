@@ -1,100 +1,67 @@
-/* Style global */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
 
+/* page login.php */
 body {
-    background-color: #f3f4f6;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    background-color: #ecf0f1; /* Couleur de fond bleu clair */
 }
-
-/* En-tête */
 header {
-    width: 100%;
+    background-color: #231a76; /* Couleur du header */
+    color: white;
+    padding: 20px;
     text-align: center;
-    padding: 2em;
-    background-color: #4a90e2;
-    color: #fff;
 }
-
-header h1 {
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-header p {
-    font-size: 1.2em;
-}
-
-/* Section principale */
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2em;
-    width: 100%;
-}
-
 .container {
-    background-color: #fff;
-    padding: 2em;
-    border-radius: 8px;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
 }
-
-.container h2 {
-    color: #4a90e2;
-    margin-bottom: 1em;
+.btn-custom {
+    background-color: #277c4a; /* Couleur des boutons */
+    color: white;
 }
-
-.container p {
-    color: #666;
-    margin-bottom: 1em;
+.btn-custom:hover {
+    background-color: #1c5835; /* Couleur du bouton au survol */
+    color: white;
 }
-
-/* Formulaires */
-form label {
-    display: block;
+.form-control {
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.form-label {
     font-weight: bold;
-    color: #4a90e2;
-    margin: 1em 0 0.5em;
 }
 
-form input[type="text"],
-form input[type="password"] {
-    width: 100%;
-    padding: 0.8em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/*page bienvenu */
+body {
+    background-color: #f4f6f9; /* Fond doux */
+}
+h1 span {
+    color: #3498db; /* Couleur primaire pour le nom */
+}
+.btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+.btn-primary:hover {
+    background-color: #2980b9; /* Survol bouton */
+    border-color: #2980b9;
+}
+.text-muted {
+    font-size: 1.1rem;
 }
 
-form .btn {
-    display: inline-block;
-    width: 100%;
-    padding: 0.8em;
-    font-size: 1em;
-    color: #fff;
-    background-color: #4a90e2;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+/* pour la selection d'image dans la page ajouter_catalog.php */
+.selectable-image {
     cursor: pointer;
+    transition: border 0.2s ease;
 }
-
-form .btn:hover {
-    background-color: #357ab8;
+.selected {
+    border: 3px solid green;
+    opacity: 0.8;
 }
-
+.position-label {
+    font-weight: bold;
+    color: #007bff;
+}
