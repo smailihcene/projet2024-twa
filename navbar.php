@@ -31,6 +31,9 @@
             <a class="nav-link" href="/projet2024-twa/affichage_img.php">Image</a>
           </li>
           <?php } ?>
+          <li class="nav-item">
+            <a class="nav-link" href="/projet2024-twa/label/label.php">Label</a>
+          </li>
         </ul>
         <!-- Bouton "Se déconnecter" à droite -->
         <form class="d-flex" action="/projet2024-twa/logout.php" method="post">
