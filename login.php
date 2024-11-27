@@ -48,6 +48,7 @@
                     - value= "se connecter" affiche le texte écrit sur le bouton. 
                     - class="btn btn-custom w-100" : Classe Bootstrap pour styliser le bouton et le rendre large (100% de la largeur). 
                 -->
+                <a href="formulaire.php" class="login-btn">S'inscrire</a>
 
             </form>
         </section>
