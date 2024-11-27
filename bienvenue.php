@@ -10,11 +10,16 @@ if (!isset($_SESSION['login'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
     <title>Bienvenue</title>
     <link rel="stylesheet" href="css/style.css">
+    
 </head>
 <body>
+<?php include ('navbar_editeur.php'); ?>
     <header>
+        
         <h1>Bienvenue, 
             <?php echo ($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?> !</h1>
     </header>
@@ -36,3 +41,6 @@ if (!isset($_SESSION['login'])) {
 
 </body>
 </html>
+
+
+

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<?php include ('navbar_editeur.php'); ?>
     <header>
         <h1>Connexion</h1>
         <p>Veuillez entrer vos identifiants pour accéder à votre espace</p>

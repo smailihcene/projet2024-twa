@@ -8,10 +8,10 @@
 </head>
 <body>
     <header>
-        <h1>Bienvenue sur Projet2024</h1>
+        <h1>Bienvenue sur Projet2024</h1> <!-- titre de niveau 1  -->
     </header>
     <main>
-        <section class="intro">
+        <section class="intro"> <!-- Permet de séparer la page en une section -->
             <h2>Accédez à votre compte</h2>
             
             <p>Connectez-vous pour accéder à votre espace personnel.</p>
