@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
@@ -7,7 +10,7 @@ if (!isset($_SESSION['login'])) {
 
 require('db/connexion.php');
 $query_path = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name,
- i.id AS image_id, c.name AS catalog_name
+ i.id AS image_id, c.name AS catalog_name, ci.catalogId AS catalog_id
             FROM image AS i
             INNER JOIN bank AS b ON i.bankId = b.id
             INNER JOIN CatalogImage AS ci ON ci.imageId = i.id
@@ -52,7 +55,9 @@ if (!$rep) {
                         <td><?= htmlspecialchars($image['catalog_name']); ?></td>
                         <td><?= htmlspecialchars($image['bank_name']); ?></td>
                         <td>
-                            <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt="" class="img-thumbnail" width="100">
+                            <a href="afficher_img_detail.php?id=<?=($image['image_id'])?>;" class="">
+                                <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt="" class="img-thumbnail" width="100">
+                            </a>
                         </td>
                         <td>
                             <button 
@@ -60,9 +65,11 @@ if (!$rep) {
                                 data-bs-toggle="modal" 
                                 data-bs-target="#labelModal" 
                                 data-image-src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" 
-                                data-image-id="<?= htmlspecialchars($image['image_id']); ?>">
+                                data-image-id="<?= htmlspecialchars($image['image_id']); ?>"
+                                data-catalog-id="<?= htmlspecialchars($image['catalog_id']); ?>"
+                            >
                                 Etiquette 
-                            </button>
+                        </button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -93,6 +100,7 @@ if (!$rep) {
                         <!-- Coordonnées du polygone -->
                         <input type="hidden" name="points" id="polygonPoints">
                         <input type="hidden" name="image_id" id="imageId">
+                        <input type="hidden" name="catalog_id" id="catalogId">
 
                         <button type="button" id="saveBtn" class="btn btn-success">Sauvegarder</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -112,22 +120,24 @@ if (!$rep) {
         // Préparer le canvas avec une image lorsque le modal est ouvert
         const labelModal = document.getElementById('labelModal');
         labelModal.addEventListener('show.bs.modal', (event) => {
-            const button = event.relatedTarget; // Bouton qui a déclenché l'ouverture
+            const button = event.relatedTarget; // Le bouton qui a déclenché l'ouverture
             const imageSrc = button.getAttribute('data-image-src');
             const imageId = button.getAttribute('data-image-id');
-
+            const catalogId = button.getAttribute('data-catalog-id'); // Récupérer l'ID du catalogue
+        
             // Charger l'image sur le canvas
             img.src = imageSrc;
             img.onload = () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
             };
-
+        
             // Réinitialiser les points
             points.length = 0;
-
-            // Ajouter l'image ID dans le formulaire
+        
+            // Ajouter les IDs dans le formulaire
             document.getElementById('imageId').value = imageId;
+            document.getElementById('catalogId').value = catalogId; // Ajouter l'ID du catalogue dans le formulaire
         });
 
         // Dessiner des points et des lignes sur le canvas
@@ -167,6 +177,9 @@ if (!$rep) {
 
         // Sauvegarder les données
         document.getElementById('saveBtn').addEventListener('click', () => {
+            // Pour tester 
+            // console.log("Image ID: ", document.getElementById('imageId').value);
+            // console.log("Catalog ID: ", document.getElementById('catalog_id_ci'));
             // Convertir les points en JSON
             const pointsJSON = JSON.stringify(points);
             document.getElementById('polygonPoints').value = pointsJSON;
