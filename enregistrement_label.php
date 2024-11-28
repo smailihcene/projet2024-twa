@@ -9,7 +9,6 @@ require('db/connexion.php');
 $mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
 if (!$con) {
     die("Échec de la connexion à la base de données : " . mysqli_connect_error());
-    //On vérifie si la connexion a échoué 
 }
 
 // Vérifier si le formulaire a été soumis
@@ -23,19 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imageId = $con->real_escape_string($_POST['image_id'] ?? '');
 
     // Vérification des champs obligatoires
-    if (empty($name) || empty($description) || empty($points) || empty($imageId)) {
+    if (empty($name) || empty($description) || empty($points) || empty($imageId) || empty($catalogId)) {
         die("Erreur : Tous les champs requis ne sont pas remplis !");
     }
-
-    // Récupérer l'ID de l'image (passé via le formulaire)
-    $imageId = $con->real_escape_string($_POST['image_id'] ?? '');
-    $catalogId = $con->real_escape_string($_POST['catalog_id'] ?? '');
-
 
     // Préparer la requête d'insertion
     $query = "INSERT INTO Label (catalogId, imageId, name, description, points, html) 
               VALUES (?, ?, ?, ?, ?, ?)";
-
     $stmt = $con->prepare($query);
 
     if (!$stmt) {
@@ -47,10 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Exécuter la requête
     if ($stmt->execute()) {
-        echo "Étiquette enregistrée avec succès !";
-        echo "<a href='afficher_label.php'>Voir les étiquettes</a>";
+        // Rediriger vers la page détail de l'image associée à l'étiquette
+        header("Location: afficher_img_detail.php?id=" . $imageId);
+        exit();
     } else {
-        die("Erreur lors de l'exécution de la requête : " . $stmt->error . " | Données : " . json_encode($_POST));
+        die("Erreur lors de la mise à jour : " . $stmt->error . " | Données : " . json_encode($_POST));
     }
 
     $stmt->close();

@@ -9,16 +9,25 @@ if (!isset($_SESSION['login'])) {
 }
 
 require('db/connexion.php');
-$query_path = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name,
- i.id AS image_id, c.name AS catalog_name, ci.catalogId AS catalog_id
-            FROM image AS i
-            INNER JOIN bank AS b ON i.bankId = b.id
-            INNER JOIN CatalogImage AS ci ON ci.imageId = i.id
-            INNER JOIN Catalog AS c ON ci.catalogId = c.id;";
+
+// Requête SQL pour récupérer les données
+$query_path = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name, 
+                i.id AS image_id, c.name AS catalog_name, ci.catalogId AS catalog_id
+                FROM image AS i
+                INNER JOIN bank AS b ON i.bankId = b.id
+                INNER JOIN CatalogImage AS ci ON ci.imageId = i.id
+                INNER JOIN Catalog AS c ON ci.catalogId = c.id
+                ORDER BY b.name";
 
 $rep = mysqli_query($con, $query_path);
 if (!$rep) {
     die("Erreur lors de la récupération des images : " . mysqli_error($con));
+}
+
+// Organiser les données par bank_name
+$banks = [];
+while ($row = mysqli_fetch_assoc($rep)) {
+    $banks[$row['bank_name']][] = $row;
 }
 ?>
 
@@ -39,40 +48,40 @@ if (!$rep) {
     <?php include 'navbar.php'; ?>
 
     <div class="container mt-4">
-        <h1 class="mb-4">Liste des Images</h1>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <!-- <th>Nom Catalogue</th> -->
-                    <th>Nom de la Banque</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($image = mysqli_fetch_assoc($rep)) { ?>
-                    <tr>
-                        <!-- <td><?= htmlspecialchars($image['catalog_name']); ?></td> -->
-                        <td><?= htmlspecialchars($image['bank_name']); ?></td>
-                        <td>
-                            <a href="afficher_img_detail.php?id=<?=($image['image_id'])?>;" class="">
-                                <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt="" class="img-thumbnail" width="100">
-                            </a>
-                        </td>
-                        <td>
-                            <button 
-                                class="btn btn-primary" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#labelModal" 
-                                data-image-src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" 
-                                data-image-id="<?= htmlspecialchars($image['image_id']); ?>"
-                                data-catalog-id="<?= htmlspecialchars($image['catalog_id']); ?>">Etiquette 
-                            </button>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <h1 class="mb-4">Liste des Images par Banque</h1>
+
+        <?php foreach ($banks as $bank_name => $images) { ?>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2 class="h5"><?= htmlspecialchars($bank_name); ?></h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <?php foreach ($images as $image) { ?>
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <a href="afficher_img_detail.php?id=<?=($image['image_id'])?>;" class="">
+                                        <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt="" 
+                                        class="img-thumbnail card-img-top border border-danger border-3" width="100">
+                                    </a>
+                                    <div class="card-body">
+                                        <button 
+                                            class="btn btn-sm btn-primary" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#labelModal" 
+                                            data-image-src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" 
+                                            data-image-id="<?= htmlspecialchars($image['image_id']); ?>"
+                                            data-catalog-id="<?= htmlspecialchars($image['catalog_id']); ?>">
+                                            Ajouter Étiquette
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 
     <!-- Modal -->
