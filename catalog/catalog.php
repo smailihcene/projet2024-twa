@@ -33,7 +33,6 @@ if (!$rep) {
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nom</th>
                     <th>Description</th>
                     <?php if ($_SESSION['role_name'] === 'editor') { ?>
@@ -44,8 +43,9 @@ if (!$rep) {
             <tbody>
                 <?php while ($catalog = mysqli_fetch_assoc($rep)) { ?>
                     <tr>
-                        <td><?= htmlspecialchars($catalog['id']); ?></td>
-                        <td><?= htmlspecialchars($catalog['name']); ?></td>
+                        <td>
+                            <a href="catalog_detail.php?id=<?= $catalog['id']; ?>" class=""><?= htmlspecialchars($catalog['name']); ?></a>
+                        </td>
                         <td><?= htmlspecialchars($catalog['description']); ?></td>
                         <?php if ($_SESSION['role_name'] === 'editor') { ?>
                             <td>

@@ -43,7 +43,7 @@ if (!$rep) {
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Nom Catalogue</th>
+                    <!-- <th>Nom Catalogue</th> -->
                     <th>Nom de la Banque</th>
                     <th>Image</th>
                     <th>Actions</th>
@@ -52,7 +52,7 @@ if (!$rep) {
             <tbody>
                 <?php while ($image = mysqli_fetch_assoc($rep)) { ?>
                     <tr>
-                        <td><?= htmlspecialchars($image['catalog_name']); ?></td>
+                        <!-- <td><?= htmlspecialchars($image['catalog_name']); ?></td> -->
                         <td><?= htmlspecialchars($image['bank_name']); ?></td>
                         <td>
                             <a href="afficher_img_detail.php?id=<?=($image['image_id'])?>;" class="">
