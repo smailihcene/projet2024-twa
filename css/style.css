@@ -65,3 +65,49 @@ h1 span {
     font-weight: bold;
     color: #007bff;
 }
+
+/* Titre principal */
+h1 {
+    color: #3498db;
+    font-weight: bold;
+}
+
+/* Galerie d'images */
+.image-container {
+    position: relative;
+    display: inline-block;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-container img {
+    width: 600px;
+    height: 400px;
+    object-fit: cover; /* Ajuste l'image à la zone tout en respectant ses proportions */
+}
+
+
+
+button#prevButton {
+    margin-right: 10px;
+}
+
+button#nextButton {
+    margin-left: 10px;
+}
+
+/* Informations sur l'image */
+#imageInfo {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Message d'erreur */
+.text-danger {
+    font-size: 18px;
+    font-weight: bold;
+}
+

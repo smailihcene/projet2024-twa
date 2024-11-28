@@ -66,10 +66,8 @@ if (!$rep) {
                                 data-bs-target="#labelModal" 
                                 data-image-src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" 
                                 data-image-id="<?= htmlspecialchars($image['image_id']); ?>"
-                                data-catalog-id="<?= htmlspecialchars($image['catalog_id']); ?>"
-                            >
-                                Etiquette 
-                        </button>
+                                data-catalog-id="<?= htmlspecialchars($image['catalog_id']); ?>">Etiquette 
+                            </button>
                         </td>
                     </tr>
                 <?php } ?>
