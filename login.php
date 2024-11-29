@@ -49,6 +49,7 @@
                     - class="btn btn-custom w-100" : Classe Bootstrap pour styliser le bouton et le rendre large (100% de la largeur). 
                 -->
                 <a href="formulaire.php" class="login-btn">S'inscrire</a>
+                <!-- Bouton 'S'inscrire' qui mène qui mène à la page "formulaire.php" --> 
 
             </form>
         </section>

@@ -5,7 +5,7 @@ $mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
 
 // Récupérer les rôles depuis la table userrole
 $query = "SELECT id, name FROM userrole";
-$result = $mysqli->query($query);
+$result = $mysqli->query($query);  //exécuter la requête et récu^érer les résultats 
 
 
 ?>
@@ -20,8 +20,8 @@ $result = $mysqli->query($query);
 
 </head>
 <body>
-    <h2>Formulaire d'inscription</h2>
-    <section class="container2"  style="background-color: lightblue; margin: 50px auto; padding: 20px;">
+    <h2>Formulaire d'inscription</h2> <!--titre de la page --> 
+    <section class="container2">
 
         <form action="inscription.php" method="post">
             <label for="firstname">Prénom :</label>
