@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imageId = $con->real_escape_string($_POST['image_id'] ?? '');
 
     // Vérification des champs obligatoires
-    if (empty($name) || empty($description) || empty($points) || empty($imageId) || empty($catalogId)) {
+    if (empty($name) || empty($description) || empty($points)) {
         die("Erreur : Tous les champs requis ne sont pas remplis !");
     }
 
