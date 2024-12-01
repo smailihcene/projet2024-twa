@@ -13,10 +13,11 @@ session_destroy(); //ça détrit completement la session et permet de déconnect
 <head>
     <meta charset="UTF-8">
     <title>Déconnexion</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <meta http-equiv="refresh" content="url=index.php">
 </head>
 <body>
+<section class = "container3">
     <header>
         <h1>Déconnexion réussie</h1>  <!-- lee titre principal de la page --> 
     </header>
@@ -28,6 +29,6 @@ session_destroy(); //ça détrit completement la session et permet de déconnect
             
         </section>
     </main>
- 
+</section>
 </body>
 </html>
