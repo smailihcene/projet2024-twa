@@ -7,18 +7,21 @@ if (!isset($_SESSION['login'])) {
 }
 
 require('../db/connexion.php');
+include '../navbar.php';
 
 // Vérifier si un ID est passé pour la modification
 if (isset($_GET['id'])) {
-    $id = intval($_GET['id']);
+    $id = intval($_GET['id']);  //conversion en entier 
+    //requetes pour récupérer les données de l'étiquette 
     $query = "SELECT * FROM label WHERE id = $id";
     $result = mysqli_query($con, $query);
 
+    //vérification sile résultat est valide et non vide 
     if (!$result || mysqli_num_rows($result) == 0) {
-        die("Étiquette introuvable.");
+        die("Étiquette introuvable."); //message d'arret et arret d'exécution 
     }
 
-    $label = mysqli_fetch_assoc($result);
+    $label = mysqli_fetch_assoc($result);  //extraction des donénes sous forme de tableau associatif
 } else {
     header("Location: label.php");
     exit();
@@ -26,6 +29,7 @@ if (isset($_GET['id'])) {
 
 // Traitement de la mise à jour
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //récupérer et échapper les données envpyé via le formulaire 
     $catalogId = mysqli_real_escape_string($con, $_POST['catalogId']);
     $imageId = mysqli_real_escape_string($con, $_POST['imageId']);
     $name = mysqli_real_escape_string($con, $_POST['name']);
@@ -33,12 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $points = mysqli_real_escape_string($con, $_POST['points']);
     $html = mysqli_real_escape_string($con, $_POST['html']);
 
+    //requ^te pour mettre à jour l'étiquette 
     $updateQuery = "UPDATE label SET catalogId = '$catalogId', imageId = '$imageId', name = '$name', description = '$description', points = '$points', html = '$html' WHERE id = $id";
     
+    //exécution de la requette et redirection ou gestion d'erreur 
     if (mysqli_query($con, $updateQuery)) {
         header("Location: label.php");
         exit();
     } else {
+        //affciher une erreur en cas de problème avec la requête 
         die("Erreur lors de la mise à jour : " . mysqli_error($con));
     }
 }
@@ -54,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Modifier l'Étiquette</title>
 </head>
 <body>
-    <?php include '../navbar.php'; ?>
+    
 
     <div class="container mt-4">
         <h1 class="mb-4">Modifier l'Étiquette</h1>
