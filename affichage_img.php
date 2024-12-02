@@ -42,8 +42,21 @@ while ($row = mysqli_fetch_assoc($rep)) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        canvas {
-            border: 1px solid black;
+        body {
+            background-color: #f8f9fa;
+        }
+        .bank-section {
+            margin-bottom: 30px;
+        }
+        .bank-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .image-thumbnail {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -51,156 +64,39 @@ while ($row = mysqli_fetch_assoc($rep)) {
 <?php include 'navbar.php'; ?>
 
 <div class="container mt-4">
-    <h1 class="mb-4">Liste des Images par Banque</h1>
+    <h1 class="text-center mb-4">Liste des Images par Banque</h1>
 
-    <?php foreach ($banks as $bank_name => $images) { ?>
-        <div class="card mb-4">
-            <div class="card-header">
-                <h2 class="h5"><?= htmlspecialchars($bank_name); ?></h2>
-            </div>
-            <div class="card-body">
-                <div class="row">
+    <?php if (empty($banks)) { ?>
+        <p class="text-center">Aucune image trouvée.</p>
+    <?php } else { ?>
+        <?php foreach ($banks as $bank_name => $images) { ?>
+            <div class="bank-section">
+                <div class="bank-header">
+                    <h2 class="h5"><?= htmlspecialchars($bank_name); ?></h2>
+                </div>
+                <div class="row mt-3">
                     <?php foreach ($images as $image) { ?>
-                        <div class="col-md-3 mb-4">
+                        <div class="col-md-3 col-sm-4 col-6 text-center mb-4">
                             <div class="card">
-                                <a href="afficher_img_detail.php?id=<?=($image['image_id'])?>;" class="">
-                                    <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>" alt=""
-                                         class="img-thumbnail card-img-top border border-danger border-3" width="100">
+                                <a href="afficher_img_detail.php?id=<?=($image['image_id'])?>;">
+                                    <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>"
+                                         alt="<?= htmlspecialchars($image['image_name']); ?>"
+                                         class="img-thumbnail card-img-top border border-primary border-2">
                                 </a>
                                 <div class="card-body">
-                                    <button
-                                            class="btn btn-sm btn-primary"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#labelModal"
-                                            data-image-src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>"
-                                            data-image-id="<?= htmlspecialchars($image['image_id']); ?>"
-                                            data-catalog-id="<?= htmlspecialchars($image['catalog_id']); ?>">
+                                    <p class="card-text"><?= htmlspecialchars($image['image_name']); ?></p>
+                                    <a href="ajouter_label.php?image_id=<?= htmlspecialchars($image['image_id']); ?>&catalog_id=<?= htmlspecialchars($image['catalog_id']); ?>"
+                                       class="btn btn-sm btn-success">
                                         Ajouter Étiquette
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     <?php } ?>
                 </div>
             </div>
-        </div>
-<?php } ?>
+        <?php } ?>
+    <?php } ?>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="labelModal" tabindex="-1" aria-labelledby="labelModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="labelModalLabel">Outil d'Étiquetage</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <canvas id="imageCanvas" width="600" height="400"></canvas>
-                <form id="labelForm" method="POST" action="enregistrement_label.php">
-                    <label>Nom de l'Étiquette :</label>
-                    <input type="text" name="name" required><br>
-
-                    <label>Description Courte :</label>
-                    <textarea name="description" required></textarea><br>
-
-                    <label>Description HTML :</label>
-                    <textarea name="html"></textarea><br>
-
-                    <!-- Coordonnées du polygone -->
-                    <input type="hidden" name="points" id="polygonPoints">
-                    <input type="hidden" name="image_id" id="imageId">
-                    <input type="hidden" name="catalog_id" id="catalogId">
-
-                    <button type="button" id="saveBtn" class="btn btn-success">Sauvegarder</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    const canvas = document.getElementById('imageCanvas');
-    const ctx = canvas.getContext('2d');
-    const points = [];
-    let isDrawing = false;
-    let img = new Image();
-
-    // Préparer le canvas avec une image lorsque le modal est ouvert
-    const labelModal = document.getElementById('labelModal');
-    labelModal.addEventListener('show.bs.modal', (event) => {
-        const button = event.relatedTarget; // Le bouton qui a déclenché l'ouverture
-        const imageSrc = button.getAttribute('data-image-src');
-        const imageId = button.getAttribute('data-image-id');
-        const catalogId = button.getAttribute('data-catalog-id'); // Récupérer l'ID du catalogue
-
-        // Charger l'image sur le canvas
-        img.src = imageSrc;
-        img.onload = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        };
-
-        // Réinitialiser les points
-        points.length = 0;
-
-        // Ajouter les IDs dans le formulaire
-        document.getElementById('imageId').value = imageId;
-        document.getElementById('catalogId').value = catalogId; // Ajouter l'ID du catalogue dans le formulaire
-    });
-
-    // Dessiner des points et des lignes sur le canvas
-    canvas.addEventListener('mousedown', (e) => {
-        isDrawing = true;
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        points.push({ x, y });
-        drawPolygon();
-    });
-
-    function drawPolygon() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        if (points.length > 0) {
-            ctx.beginPath();
-            ctx.moveTo(points[0].x, points[0].y);
-            points.forEach((point, index) => {
-                ctx.lineTo(point.x, point.y);
-            });
-            ctx.closePath();
-
-            ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
-            ctx.fill();
-
-            ctx.strokeStyle = 'red';
-            ctx.stroke();
-
-            // Dessiner les points
-            points.forEach((point) => {
-                ctx.beginPath();
-                ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
-                ctx.fillStyle = 'blue';
-                ctx.fill();
-            });
-        }
-    }
-
-    // Sauvegarder les données
-    document.getElementById('saveBtn').addEventListener('click', () => {
-        // Pour tester
-        // console.log("Image ID: ", document.getElementById('imageId').value);
-        // console.log("Catalog ID: ", document.getElementById('catalog_id_ci'));
-        // Convertir les points en JSON
-        const pointsJSON = JSON.stringify(points);
-        document.getElementById('polygonPoints').value = pointsJSON;
-
-        // Soumettre le formulaire
-        document.getElementById('labelForm').submit();
-    });
-</script>
 </body>
 </html>
