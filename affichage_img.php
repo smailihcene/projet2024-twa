@@ -15,8 +15,8 @@ $query_path = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_na
                 i.id AS image_id, c.name AS catalog_name, ci.catalogId AS catalog_id
                 FROM image AS i
                 INNER JOIN bank AS b ON i.bankId = b.id
-                INNER JOIN CatalogImage AS ci ON ci.imageId = i.id
-                INNER JOIN Catalog AS c ON ci.catalogId = c.id
+                LEFT JOIN CatalogImage AS ci ON ci.imageId = i.id
+                LEFT JOIN Catalog AS c ON ci.catalogId = c.id
                 ORDER BY b.name";
 
 $rep = mysqli_query($con, $query_path);
@@ -69,10 +69,20 @@ while ($row = mysqli_fetch_assoc($rep)) {
                                 <!-- Détails sous l'image -->
                                 <div class="card-body">
                                     <p class="card-text"><?= htmlspecialchars($image['image_name']); ?></p>
-                                    <a href="label/ajouter_label.php?image_id=<?= htmlspecialchars($image['image_id']); ?>&catalog_id=<?= htmlspecialchars($image['catalog_id']); ?>"
-                                       class="btn btn-custom btn-sm">
-                                        Ajouter Étiquette
-                                    </a>
+
+                                    <?php if (empty($image['catalog_id'])) { ?>
+                                        <!-- Si l'image n'a pas de catalogue, afficher le bouton pour en créer un -->
+                                        <a href="/projet2024-twa/catalog/ajouter_catalog.php"
+                                           class="btn btn-warning btn-sm">
+                                            Créer un Catalogue
+                                        </a>
+                                    <?php } else { ?>
+                                        <!-- Si l'image a un catalogue, afficher le bouton d'ajout d'étiquette -->
+                                        <a href="label/ajouter_label.php?image_id=<?= htmlspecialchars($image['image_id']); ?>&catalog_id=<?= htmlspecialchars($image['catalog_id']); ?>"
+                                           class="btn btn-custom btn-sm">
+                                            Ajouter Étiquette
+                                        </a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -84,4 +94,3 @@ while ($row = mysqli_fetch_assoc($rep)) {
 </div>
 </body>
 </html>
-

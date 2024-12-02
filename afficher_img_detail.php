@@ -13,12 +13,13 @@ if (isset($_GET['id'])) {
 
     // Requête SQL pour récupérer les informations de l'image correspondant à l'ID
     $query = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name,
-                     i.id AS image_id, c.name AS catalog_name
-              FROM image AS i
-              INNER JOIN bank AS b ON i.bankId = b.id
-              INNER JOIN CatalogImage AS ci ON ci.imageId = i.id
-              INNER JOIN Catalog AS c ON ci.catalogId = c.id
-              WHERE i.id = $image_id;";
+                  i.id AS image_id, c.name AS catalog_name
+           FROM image AS i
+           INNER JOIN bank AS b ON i.bankId = b.id
+           LEFT JOIN CatalogImage AS ci ON ci.imageId = i.id
+           LEFT JOIN Catalog AS c ON ci.catalogId = c.id
+           WHERE i.id = $image_id";
+
 
     $result = mysqli_query($con, $query);
 
