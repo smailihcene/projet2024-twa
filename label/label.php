@@ -2,10 +2,11 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+//affichage des erreurs pour faciliter le débogage 
 
-session_start();
-if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
+session_start(); //démarrage de la session 
+if (!isset($_SESSION['login'])) {  //si l'utilisateur est connecté 
+    header("Location: login.php"); //redirection vers la page connexion si l'utilisateur n'est pas connecté
     exit();
 }
 
@@ -18,7 +19,7 @@ $query = "SELECT l.id, l.name, l.description, l.points, l.html,
           INNER JOIN image AS i ON l.imageId = i.id
           INNER JOIN bank AS b ON i.bankId = b.id";
 
-$rep = mysqli_query($con, $query);
+$rep = mysqli_query($con, $query); //exécution de la requête 
 if (!$rep) {
     die("Erreur lors de la récupération des étiquettes : " . mysqli_error($con));
 }
@@ -36,10 +37,11 @@ if (!$rep) {
 <?php include '../navbar.php'; ?>
 
 <div class="container mt-4">
-    <h1 class="mb-4">Liste des étiquettes</h1>
+    <h1 class="mb-4">Liste des étiquettes</h1> <!-- tableau pour afficher les étiquettes --> 
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
+            <!-- les différentes colonnes --> 
             <th>Image</th>
             <th>Nom</th>
             <th>Description</th>
@@ -50,6 +52,7 @@ if (!$rep) {
         </thead>
         <tbody>
         <?php while ($label = mysqli_fetch_assoc($rep)) { ?>
+            <!-- boucle pour afficher chq étiquette récupérée --> 
             <tr>
                 <!-- Colonne d'image -->
                 <td>
@@ -57,6 +60,7 @@ if (!$rep) {
                          alt="<?= htmlspecialchars($label['name']); ?>"
                          style="width: 100px; height: auto;"
                          class="img-thumbnail">
+                         <!-- on affiche en miniateure l'imaga associé -->
                 </td>
                 <!-- Nom -->
                 <td><?= htmlspecialchars($label['name']); ?></td>
