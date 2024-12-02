@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require('db/connexion.php');
+require('../db/connexion.php');
 
 $mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
 if (!$con) {
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Exécuter la requête
     if ($stmt->execute()) {
         // Rediriger vers la page détail de l'image associée à l'étiquette
-        header("Location: afficher_img_detail.php?id=" . $imageId);
+        header("Location: ../afficher_img_detail.php?id=" . $imageId);
         exit();
     } else {
         die("Erreur lors de la mise à jour : " . $stmt->error . " | Données : " . json_encode($_POST));

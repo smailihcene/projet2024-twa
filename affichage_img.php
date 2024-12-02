@@ -85,7 +85,7 @@ while ($row = mysqli_fetch_assoc($rep)) {
                                 </a>
                                 <div class="card-body">
                                     <p class="card-text"><?= htmlspecialchars($image['image_name']); ?></p>
-                                    <a href="ajouter_label.php?image_id=<?= htmlspecialchars($image['image_id']); ?>&catalog_id=<?= htmlspecialchars($image['catalog_id']); ?>"
+                                    <a href="label/ajouter_label.php?image_id=<?= htmlspecialchars($image['image_id']); ?>&catalog_id=<?= htmlspecialchars($image['catalog_id']); ?>"
                                        class="btn btn-sm btn-success">
                                         Ajouter Étiquette
                                     </a>

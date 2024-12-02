@@ -1,11 +1,15 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
 }
 
-require('db/connexion.php');
+require('../db/connexion.php');
 
 // Récupérer les paramètres d'ID de l'image et du catalogue
 $image_id = isset($_GET['image_id']) ? $_GET['image_id'] : null;
@@ -47,7 +51,7 @@ $stmt->close();
     </style>
 </head>
 <body>
-<?php include 'navbar.php'; ?>
+<?php include '../navbar.php'; ?>
 
 <div class="container mt-4">
     <h1>Ajouter une Étiquette pour l'image : <?= htmlspecialchars($image['image_name']); ?></h1>
@@ -82,7 +86,7 @@ $stmt->close();
                 </div>
 
                 <button type="button" id="saveBtn" class="btn btn-success">Sauvegarder</button>
-                <a href="afficher_img_detail.php?id=<?= htmlspecialchars($image_id); ?>" class="btn btn-secondary">Retour</a>
+                <a href="../afficher_img_detail.php?id=<?= htmlspecialchars($image_id); ?>" class="btn btn-secondary">Retour</a>
             </form>
         </div>
     </div>
@@ -96,7 +100,7 @@ $stmt->close();
     let img = new Image();
 
     // Charger l'image sur le canvas
-    img.src = './images/<?= htmlspecialchars($image['bank_dir']); ?>/<?= htmlspecialchars($image['image_name']); ?>';
+    img.src = '.././images/<?= htmlspecialchars($image['bank_dir']); ?>/<?= htmlspecialchars($image['image_name']); ?>';
     img.onload = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
