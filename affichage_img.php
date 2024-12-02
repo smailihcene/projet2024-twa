@@ -41,24 +41,6 @@ while ($row = mysqli_fetch_assoc($rep)) {
     <title>Gestion des Images</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .bank-section {
-            margin-bottom: 30px;
-        }
-        .bank-header {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .image-thumbnail {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
 </head>
 <body>
 <?php include 'navbar.php'; ?>
@@ -78,15 +60,17 @@ while ($row = mysqli_fetch_assoc($rep)) {
                     <?php foreach ($images as $image) { ?>
                         <div class="col-md-3 col-sm-4 col-6 text-center mb-4">
                             <div class="card">
+                                <!-- Lien vers le détail de l'image -->
                                 <a href="afficher_img_detail.php?id=<?=($image['image_id'])?>;">
                                     <img src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>"
                                          alt="<?= htmlspecialchars($image['image_name']); ?>"
                                          class="img-thumbnail card-img-top border border-primary border-2">
                                 </a>
+                                <!-- Détails sous l'image -->
                                 <div class="card-body">
                                     <p class="card-text"><?= htmlspecialchars($image['image_name']); ?></p>
                                     <a href="label/ajouter_label.php?image_id=<?= htmlspecialchars($image['image_id']); ?>&catalog_id=<?= htmlspecialchars($image['catalog_id']); ?>"
-                                       class="btn btn-sm btn-success">
+                                       class="btn btn-custom btn-sm">
                                         Ajouter Étiquette
                                     </a>
                                 </div>
@@ -100,3 +84,4 @@ while ($row = mysqli_fetch_assoc($rep)) {
 </div>
 </body>
 </html>
+

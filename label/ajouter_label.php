@@ -46,11 +46,8 @@ $stmt->close();
     <title>Ajouter une Étiquette</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        canvas {
-            border: 1px solid black;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
 <body>
 <?php include '../navbar.php'; ?>
@@ -89,8 +86,8 @@ $stmt->close();
                     <input type="hidden" name="points" id="polygonPoints">
                 </div>
 
-                <button type="button" id="saveBtn" class="btn btn-success">Sauvegarder</button>
-                <a href="../afficher_img_detail.php?id=<?= htmlspecialchars($image_id); ?>" class="btn btn-secondary">Retour</a>
+                <button type="button" id="saveBtn" class="btn btn-custom btn-sm">Sauvegarder</button>
+                <a href="../afficher_img_detail.php?id=<?= htmlspecialchars($image_id); ?>" class="btn btn-custom btn-sm">Retour</a>
             </form>
         </div>
     </div>
