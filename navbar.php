@@ -25,7 +25,7 @@
           </li>
           <?php if ($_SESSION['role_name'] === 'editor') { ?>
           <li class="nav-item">
-            <a class="nav-link" href="/projet2024-twa/catalog/catalog.php">Création d'un Catalogue</a>
+            <a class="nav-link" href="/projet2024-twa/catalog/catalog.php">Catalogue</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/projet2024-twa/affichage_img.php">Image a étiquetter</a>
