@@ -28,10 +28,10 @@
             <a class="nav-link" href="/projet2024-twa/catalog/catalog.php">Catalogue</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/projet2024-twa/affichage_img.php">Image a étiquetter</a>
+            <a class="nav-link" href="/projet2024-twa/affichage_img.php">Galerie</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/projet2024-twa/label/label.php">gestion de l'etiquetage</a>
+            <a class="nav-link" href="/projet2024-twa/label/label.php">Sommet</a>
           </li>
           <?php } ?>
         </ul>
