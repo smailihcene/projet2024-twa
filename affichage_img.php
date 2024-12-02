@@ -84,7 +84,7 @@ while ($row = mysqli_fetch_assoc($rep)) {
                 </div>
             </div>
         </div>
-    <?php } ?>
+<?php } ?>
 </div>
 
 <!-- Modal -->

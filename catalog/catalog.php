@@ -1,5 +1,5 @@
 <?php
-session_start(); //on démarre la session 
+session_start(); //on démarre la session
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
@@ -48,7 +48,7 @@ if (!$rep) { //si la requête échoue
                 <?php while ($catalog = mysqli_fetch_assoc($rep)) { ?>
                     <tr>
                         <td>
-                            <a href="catalog_detail.php?id=<?= $catalog['id']; ?>" class=""><?= htmlspecialchars($catalog['name']); ?></a>
+                           <?= htmlspecialchars($catalog['name']); ?>
                         </td>
                         <td><?= htmlspecialchars($catalog['description']); ?></td>
                         <?php if ($_SESSION['role_name'] === 'editor') { ?>  <!-- afficher les actions que pour l'éditeur --> 

@@ -1,108 +1,154 @@
 <?php
-session_start(); //début de la session 
-
-//on vérifie si l'utilisateur est authentifié 
+session_start();
 if (!isset($_SESSION['login'])) {
-    //$_SESSION stocke des information spécifiques à une session utilisateur
-    header("Location: login.php"); //si le login n'exixte pas on est redirigé vers la page de connexion
-    exit();//Arreter le script après la redirection 
+    header("Location: login.php");
+    exit();
 }
 
-require('db/connexion.php');  //connexion à la base de donnée 
+require('db/connexion.php');
 
-// Requête pour récupérer les images
-$query_images = "SELECT b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name 
-                 FROM image AS i 
-                 INNER JOIN bank AS b ON i.bankId = b.id";
-$result_images = mysqli_query($con, $query_images);  //mysqli_query() permet d'envoyer la requête à la base de donnée 
+// Récupération des catalogues
+$query_catalogs = "
+    SELECT c.id AS catalog_id, c.name AS catalog_name, c.description AS catalog_description,
+           b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name
+    FROM catalog AS c
+    LEFT JOIN CatalogImage AS ci ON c.id = ci.catalogId
+    LEFT JOIN image AS i ON ci.imageId = i.id
+    LEFT JOIN bank AS b ON i.bankId = b.id
+    ORDER BY c.id, i.id";
+$result_catalogs = mysqli_query($con, $query_catalogs);
 
-//si la requête échoue 
-if (!$result_images) {
-    die("Erreur lors de la récupération des images : " . mysqli_error($con)); //message d'erreur 
+if (!$result_catalogs) {
+    die("Erreur lors de la récupération des catalogues : " . mysqli_error($con));
 }
 
-//on stocke les images dans un tableau 
-$images = [];
-while ($row = mysqli_fetch_assoc($result_images)) {  //on traite les résultat
-    $images[] = [
-        'bank_dir' => $row['bank_dir'],   //répertoire de la banque 
-        'image_name' => $row['image_name'],  //nom le l'image
-        'bank_name' => $row['bank_name'] //nom de la banque
-    ];
+// Organisation des catalogues
+$catalogs = [];
+while ($row = mysqli_fetch_assoc($result_catalogs)) {
+    $catalog_id = $row['catalog_id'];
+    if (!isset($catalogs[$catalog_id])) {
+        $catalogs[$catalog_id] = [
+            'name' => htmlspecialchars($row['catalog_name']),
+            'description' => htmlspecialchars($row['catalog_description']),
+            'images' => []
+        ];
+    }
+    if ($row['image_name']) {
+        $catalogs[$catalog_id]['images'][] = [
+            'bank_dir' => htmlspecialchars($row['bank_dir']),
+            'image_name' => htmlspecialchars($row['image_name']),
+            'bank_name' => htmlspecialchars($row['bank_name'])
+        ];
+    }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galerie d'Images</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-    <?php include "navbar.php"; ?> <!--on inclut la navbar --> 
-
-    <div class="container mt-5">
-        <!-- le titre principal -->
-        <h1 class="text-center mb-4">Galerie d'images</h1>
-        
-        <?php if (empty($images)): ?> 
-            <!-- si aucune images n'est dispo on renvoie ce message -->
-            <p class="text-danger text-center">Aucune image n'est disponible.</p>
-        <?php else: ?>
-            <!-- Galerie avec navigation -->
-            <div class="d-flex justify-content-center align-items-center">
-                <button id="prevButton" class="btn btn-primary me-3">❮</button>
-                <!-- le conteneur qui affiche les images-->
-                <div class="image-container">
-                    <img id="catalogImage" class="image-display" 
-                         src="./images/<?= htmlspecialchars($images[0]['bank_dir'] . '/' . $images[0]['image_name']); ?>" 
-                         alt="<?= htmlspecialchars($images[0]['image_name']); ?>">
-                </div>
-                <!-- bouton qui permet de naviguer vers l'autre image -->
-                <button id="nextButton" class="btn btn-primary ms-3">❯</button>
-            </div>
-            <!-- information sur l'image actuelle -->
-            <p id="imageInfo" class="mt-3 text-center">
-                Banque : <strong><?= htmlspecialchars($images[0]['bank_name']); ?></strong>
-            </p>
-        <?php endif; ?>
-    </div>
-
-    <script> //partie JS 
-        // Récupérer les données des images depuis le PHP
-        const images = JSON.parse('<?= json_encode($images); ?>');
-        let currentIndex = 0;
-
-        // Sélectionner les éléments HTML
-        const catalogImage = document.getElementById("catalogImage");  // l'image affichée
-        const imageInfo = document.getElementById("imageInfo"); //les informations sur l'image affichée 
-        const prevButton = document.getElementById("prevButton");  //bouton précédent 
-        const nextButton = document.getElementById("nextButton");  //bouton suivant 
-
-        // Fonction pour mettre à jour l'image et les info 
-        function updateImage(index) {
-            const image = images[index];  //on récupère l'image actuelle
-            catalogImage.src = `./images/${image.bank_dir}/${image.image_name}`;   //modifier la source de l'image 
-            imageInfo.innerHTML = `Banque : <strong>${image.bank_name}</strong>`;   //mettre a jour les infos 
+    <title>Bienvenue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
         }
+        .welcome-header {
+            text-align: center;
+            margin: 50px 0;
+        }
+        .carousel {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <!-- Navbar -->
+    <?php include 'navbar.php'; ?>
+</header>
 
-        // Gestion du bouton "Précédent"
-        prevButton.addEventListener("click", () => {
-            currentIndex = (currentIndex - 1 + images.length) % images.length; // Boucle vers la dernière image
-            updateImage(currentIndex);
-        });
+<main>
+    <!-- Section de bienvenue -->
+    <section class="container welcome-header">
+        <h1>Bienvenue, <?= htmlspecialchars($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?> !</h1>
+        <p class="mt-3">Vous êtes connecté en tant que
+            <strong><?= htmlspecialchars($_SESSION['role_name']); ?></strong>.
+        </p>
+        <p>Description de votre rôle :
+            <em><?= htmlspecialchars($_SESSION['role_description']); ?></em>.
+        </p>
+    </section>
 
-        // Gestion du bouton "Suivant"
-        nextButton.addEventListener("click", () => {
-            currentIndex = (currentIndex + 1) % images.length; // Boucle vers la première image
-            updateImage(currentIndex);
-        });
-    </script>
+    <!-- Section Carousel des catalogues -->
+    <section class="container">
+        <h2 class="text-center">Carousel des Catalogues</h2>
+
+        <?php if (empty($catalogs)): ?>
+            <p class="text-center">Aucun catalogue trouvé.</p>
+        <?php else: ?>
+            <div id="catalogCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <?php foreach (array_keys($catalogs) as $index => $catalog_id): ?>
+                        <button type="button" data-bs-target="#catalogCarousel" data-bs-slide-to="<?= $index; ?>"
+                                class="<?= $index === 0 ? 'active' : ''; ?>"
+                                aria-current="<?= $index === 0 ? 'true' : 'false'; ?>"
+                                aria-label="Slide <?= $index + 1; ?>"></button>
+                    <?php endforeach; ?>
+                </div>
+
+                <div class="carousel-inner">
+                    <?php
+                    $is_first = true;
+                    foreach ($catalogs as $catalog): ?>
+                        <div class="carousel-item <?= $is_first ? 'active' : ''; ?>">
+                            <div class="card">
+                                <div class="card-header text-center bg-primary text-white">
+                                    <h2 class="mb-0"><?= $catalog['name']; ?></h2>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>Description :</strong> <?= $catalog['description']; ?></p>
+
+                                    <?php if (!empty($catalog['images'])): ?>
+                                        <h3 class="mt-3">Images associées :</h3>
+                                        <div class="row">
+                                            <?php foreach ($catalog['images'] as $image): ?>
+                                                <div class="col-md-4">
+                                                    <div class="card mb-4">
+                                                        <img src="<?= "images/" . $image['bank_dir'] . "/" . $image['image_name']; ?>"
+                                                             class="card-img-top"
+                                                             alt="<?= $image['image_name']; ?>">
+                                                        <div class="card-body">
+                                                            <p class="card-text"><strong>Banque :</strong> <?= $image['bank_name']; ?></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <p>Aucune image trouvée pour ce catalogue.</p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php $is_first = false; ?>
+                    <?php endforeach; ?>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#catalogCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Précédent</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#catalogCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-danger" aria-hidden="true"></span>
+                    <span class="visually-hidden">Suivant</span>
+                </button>
+            </div>
+        <?php endif; ?>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

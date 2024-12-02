@@ -118,7 +118,7 @@ if (isset($_GET['id'])) {
                         <!-- Informations sur le label sélectionné -->
                     </div>
 
-                    <a href="/affichage_img.php" class="btn btn-primary">Retour</a>
+                    <a href="/projet2024-twa/bienvenue.php" class="btn btn-primary">Retour</a>
                 </div>
             </div>
         </div>
