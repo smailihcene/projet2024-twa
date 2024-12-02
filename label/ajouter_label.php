@@ -93,60 +93,60 @@ $stmt->close();
     </div>
 </div>
 
-<!-- partie JS --> 
+<!-- partie JS -->
 <script>
-    const canvas = document.getElementById('imageCanvas');  // on récupère l'élément canvas dans la page HTML 
-    const ctx = canvas.getContext('2d');  //on peut dessiner en 2D 
-    const points = [];  //tableau pour stocker les coordonées des points du polygone 
-    let isDrawing = false;  
+    const canvas = document.getElementById('imageCanvas');
+    const ctx = canvas.getContext('2d');
+    const points = [];
+    let isDrawing = false;
     let img = new Image();
 
-    // Charger l'image sur le canvas
+    // Charger l'image
     img.src = '.././images/<?= htmlspecialchars($image['bank_dir']); ?>/<?= htmlspecialchars($image['image_name']); ?>';
     img.onload = () => {
-        //lorsque l'image est chargée cette fonction est appelé 
+        // Redimensionner le canevas à la taille de l'image
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        // Dessiner l'image sur le canevas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, img.width, img.height);
     };
 
-    // Dessiner des points et des lignes sur le canvas
+    // Dessiner des points et des lignes sur le canevas
     canvas.addEventListener('mousedown', (e) => {
         isDrawing = true;
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        //calcule les coordonnées x et y 
 
         points.push({ x, y });
-        //ajout des coordonnée dans le tableau 
         drawPolygon();
     });
 
-    function drawPolygon() { //cette fonction permet de dessiner le polynome et les points sur le canvas 
+    function drawPolygon() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, img.width, img.height);
 
         if (points.length > 0) {
             ctx.beginPath();
-            //demarre un nouveau chemin de dessin 
             ctx.moveTo(points[0].x, points[0].y);
-            //positionne le curseur de dessin au premier point du polygone 
             points.forEach((point) => {
                 ctx.lineTo(point.x, point.y);
-            });//trace une ligne vers chaque point
-            ctx.closePath();//fermer le chemin du polygone en reliant le dernier point au prmeier 
+            });
+            ctx.closePath();
 
-            ctx.fillStyle = 'rgba(255, 0, 0, 0.3)'; //la couleur de remplissage un rouge clair transparent 
-            ctx.fill(); //remplie le polygone avec cette couleur 
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+            ctx.fill();
 
-            ctx.strokeStyle = 'red';  //les bordures en rouge 
-            ctx.stroke(); //l'appliquer au polygone 
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
 
             points.forEach((point) => {
                 ctx.beginPath();
-                ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI); //ca permet de dessiner un ptit cercle sur les coordonnées du point 
-                ctx.fillStyle = 'blue'; //la couleur de remplissage des point en bleu 
-                ctx.fill(); //la définir sur les points
+                ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
+                ctx.fillStyle = 'blue';
+                ctx.fill();
             });
         }
     }

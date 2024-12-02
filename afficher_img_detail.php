@@ -65,10 +65,6 @@ if (isset($_GET['id'])) {
     <title>Détails de l'image</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .image-container {
-            flex: 1;
-            position: relative;
-        }
         .labels-container {
             flex: 2;
             margin-left: 20px;
@@ -86,20 +82,20 @@ if (isset($_GET['id'])) {
 <!-- Affichage de la carte avec les détails de l'image -->
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
             <!-- Colonne pour l'image -->
             <div class="image-container">
                 <img
                         src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>"
                         alt="Image de la banque <?= htmlspecialchars($image['bank_name']); ?>"
-                        class="img-fluid img-thumbnail"
+                        class=""
                         id="image">
                 <!-- Canevas pour dessiner les points -->
                 <canvas id="pointsCanvas"></canvas>
             </div>
         </div>
         <!-- Colonne pour les labels -->
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="labels-container">
                 <div class="card-body">
                     <h5 class="card-title">Banque : <?= htmlspecialchars($image['bank_name']); ?></h5>
@@ -138,36 +134,28 @@ if (isset($_GET['id'])) {
         const canvas = document.getElementById("pointsCanvas");
         const ctx = canvas.getContext("2d");
 
-        // Variables pour les dimensions naturelles de l'image
         let imgWidth, imgHeight;
+        let hoveredPolygonIndex = -1;
 
-        // Fonction pour initialiser et dessiner les polygones après le chargement de l'image
         function initializeCanvas() {
-            // Ajuster la taille du canvas pour qu'elle corresponde à celle de l'image
             canvas.width = image.offsetWidth;
             canvas.height = image.offsetHeight;
-
-            // Récupérer les dimensions naturelles de l'image
             imgWidth = image.naturalWidth;
             imgHeight = image.naturalHeight;
-
-            // Dessiner les polygones après le redimensionnement
             drawPolygons();
         }
 
-        // Données des labels récupérées depuis PHP
         const labels = <?= json_encode($labels, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>;
 
-        // Fonction pour dessiner les polygones à l'échelle correcte
         function drawPolygons() {
             const scaleX = canvas.width / imgWidth;
             const scaleY = canvas.height / imgHeight;
 
-            labels.forEach(label => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            labels.forEach((label, index) => {
                 if (Array.isArray(label.points) && label.points.length > 2) {
                     ctx.beginPath();
-
-                    // Appliquer la mise à l'échelle pour chaque point du polygone
                     ctx.moveTo(label.points[0].x * scaleX, label.points[0].y * scaleY);
 
                     label.points.forEach(point => {
@@ -175,13 +163,12 @@ if (isset($_GET['id'])) {
                     });
 
                     ctx.closePath();
-                    ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
+                    ctx.fillStyle = (index === hoveredPolygonIndex) ? "rgba(128, 128, 128, 0.4)" : "rgba(255, 0, 0, 0.4)";
                     ctx.fill();
                     ctx.strokeStyle = "red";
                     ctx.lineWidth = 2;
                     ctx.stroke();
 
-                    // Ajouter un attribut de label pour chaque polygone dessiné
                     label.polygonPath = label.points.map(point => ({
                         x: point.x * scaleX,
                         y: point.y * scaleY
@@ -190,7 +177,6 @@ if (isset($_GET['id'])) {
             });
         }
 
-        // Fonction pour vérifier si un point est à l'intérieur du polygone
         function isPointInPolygon(point, polygon) {
             let isInside = false;
             let x = point.x, y = point.y;
@@ -209,7 +195,28 @@ if (isset($_GET['id'])) {
             return isInside;
         }
 
-        // Gestion de l'événement de clic sur le canevas
+        canvas.addEventListener("mousemove", function (event) {
+            const mouseX = event.offsetX;
+            const mouseY = event.offsetY;
+
+            let isOverPolygon = false;
+            let newHoveredIndex = -1;
+
+            labels.forEach((label, index) => {
+                if (label.polygonPath && isPointInPolygon({ x: mouseX, y: mouseY }, label.polygonPath)) {
+                    isOverPolygon = true;
+                    newHoveredIndex = index;
+                }
+            });
+
+            if (newHoveredIndex !== hoveredPolygonIndex) {
+                hoveredPolygonIndex = newHoveredIndex;
+                drawPolygons();
+            }
+
+            canvas.style.cursor = isOverPolygon ? "pointer" : "default";
+        });
+
         canvas.addEventListener("click", function (event) {
             const mouseX = event.offsetX;
             const mouseY = event.offsetY;
@@ -219,30 +226,14 @@ if (isset($_GET['id'])) {
                     // Afficher les informations du label dans la colonne de droite
                     const labelInfoDiv = document.getElementById("label-info");
                     labelInfoDiv.innerHTML = `
-                        <h5><strong>Nom du label :</strong> ${label.name}</h5>
-                        <p><strong>Description :</strong> ${label.description}</p>
-                        <p><strong>HTML :</strong> ${label.html}</p>
-                    `;
+                    <h5><strong>Nom du label :</strong> ${label.name}</h5>
+                    <p><strong>Description :</strong> ${label.description}</p>
+                    <p><strong>HTML :</strong> ${label.html}</p>
+                `;
                 }
             });
         });
 
-        // Changer le curseur en "pointer" quand la souris survole un polygone
-        canvas.addEventListener("mousemove", function (event) {
-            const mouseX = event.offsetX;
-            const mouseY = event.offsetY;
-            let isOverPolygon = false;
-
-            labels.forEach(label => {
-                if (label.polygonPath && isPointInPolygon({ x: mouseX, y: mouseY }, label.polygonPath)) {
-                    isOverPolygon = true;
-                }
-            });
-
-            canvas.style.cursor = isOverPolygon ? "pointer" : "default";
-        });
-
-        // Charger les dimensions de l'image avant de dessiner
         image.onload = initializeCanvas;
     });
 </script>

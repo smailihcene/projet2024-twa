@@ -75,14 +75,6 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.image-container img {
-    width: 600px;
-    height: 400px;
-    object-fit: cover; /* Ajuste l'image à la zone tout en respectant ses proportions */
-}
-
-
-
 button#prevButton {
     margin-right: 10px;
 }
