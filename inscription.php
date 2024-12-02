@@ -3,7 +3,7 @@
 require('db/connexion.php');
 
 // Créer la connexion avec mysqli
-$mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
+$mysqli = new mysqli('localhost', 'user', '1234', 'PROJET2024');
 
 // Vérifier la connexion
 if ($mysqli->connect_error) {

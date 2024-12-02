@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 require('db/connexion.php');
 
-$mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
+$mysqli = new mysqli('localhost', 'user', '1234', 'PROJET2024');
 if (!$con) {
     die("Échec de la connexion à la base de données : " . mysqli_connect_error());
 }

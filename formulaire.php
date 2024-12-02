@@ -1,7 +1,7 @@
 <?php
 // Connexion à la base de données
 require('db/connexion.php');
-$mysqli = new mysqli('localhost', 'user', '1234', 'projet2024');
+$mysqli = new mysqli('localhost', 'user', '1234', 'PROJET2024');
 
 // Récupérer les rôles depuis la table userrole
 $query = "SELECT id, name FROM userrole";
