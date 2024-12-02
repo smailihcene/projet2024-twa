@@ -1,16 +1,23 @@
 
 /* page login.php */
 body {
-    background-color: #ecf0f1; /* Couleur de fond bleu clair */
+    background-color: #f8f9fa!important; /* Fond légèrement gris pour le contraste */
 }
-header {
-    background-color: #908ac5; /* Couleur du header */
-    color: white;
-    padding: 20px;
-    text-align: center;
+.btn-custom {
+    background-color: #e7f1ff!important; /* Bleu clair */
+    color: #0056b3!important; /* Bleu foncé */
+    border: 1px solid #0056b3!important;
 }
+.btn-custom:hover {
+    background-color: #cce4ff!important; /* Teinte encore plus claire au survol */
+    color: #003d80!important; /* Plus foncé pour le texte au survol */
+}
+.bg-custom {
+    background-color: #dbe9f5!important; /* Bleu pastel pour l'en-tête */
+    color: #003d80!important;
+}
+
 .container {
-    max-width: 500px;
     margin: 50px auto;
     padding: 30px;
     background-color: white;
@@ -34,14 +41,7 @@ header {
     border-radius: 10px;
 
 }
-.btn-custom {
-    background-color: #277c4a; /* Couleur des boutons */
-    color: white;
-}
-.btn-custom:hover {
-    background-color: #1c5835; /* Couleur du bouton au survol */
-    color: white;
-}
+
 .form-control {
     border-radius: 10px;
     margin-bottom: 15px;
@@ -50,24 +50,7 @@ header {
     font-weight: bold;
 }
 
-/*page bienvenu */
-body {
-    background-color: #f4f6f9; /* Fond doux */
-}
-h1 span {
-    color: #3498db; /* Couleur primaire pour le nom */
-}
-.btn-primary {
-    background-color: #3498db;
-    border-color: #3498db;
-}
-.btn-primary:hover {
-    background-color: #2980b9; /* Survol bouton */
-    border-color: #2980b9;
-}
-.text-muted {
-    font-size: 1.1rem;
-}
+
 
 /* pour la selection d'image dans la page ajouter_catalog.php */
 .selectable-image {
@@ -128,3 +111,19 @@ button#nextButton {
     font-weight: bold;
 }
 
+body {
+    background-color: #f8f9fa; /* Fond légèrement gris pour le contraste */
+}
+.btn-custom {
+    background-color: #e7f1ff; /* Bleu clair */
+    color: #0056b3; /* Bleu foncé */
+    border: 1px solid #0056b3;
+}
+.btn-custom:hover {
+    background-color: #cce4ff; /* Teinte encore plus claire au survol */
+    color: #003d80; /* Plus foncé pour le texte au survol */
+}
+.bg-custom {
+    background-color: #dbe9f5; /* Bleu pastel pour l'en-tête */
+    color: #003d80;
+}

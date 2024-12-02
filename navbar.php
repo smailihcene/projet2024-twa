@@ -7,12 +7,13 @@
   <link rel="icon" href="img/logo.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light border-bottom border-4">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">PROJET TWA</a>
+      <a class="navbar-brand" href="#">PROJET SOMMET</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -37,9 +38,9 @@
         </ul>
         <!-- Bouton "Se déconnecter" à droite -->
         <form class="d-flex" action="/projet2024-twa/logout.php" method="post">
-          <button class="btn btn-outline-danger" type="submit">
-            <i class="bi bi-box-arrow-right"></i> Se déconnecter
-          </button>
+            <button class="btn btn-outline-light btn-custom" type="submit">
+                <i class="bi bi-box-arrow-right"></i> Se déconnecter
+            </button>
         </form>
       </div>
     </div>
