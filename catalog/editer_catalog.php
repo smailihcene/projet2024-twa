@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Modifier un Catalogue</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <?php include '../navbar.php'; ?>  <!-- inclusion de la navbar --> 
@@ -63,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <textarea class="form-control" id="description" name="description" rows="4" required><?= htmlspecialchars($catalog['description']); ?></textarea>
                 <!-- zone de texte pré remplie -->
             </div>
-            <button type="submit" class="btn btn-primary">Mettre à jour</button> <!-- bouton pour mettre à jour  --> 
-            <a href="catalog.php" class="btn btn-secondary">Annuler</a> <!-- bouton annuler qui mène vers la page catalog.php --> 
+            <button type="submit" class="btn btn-custom btn-sm">Mettre à jour</button> <!-- bouton pour mettre à jour  -->
+            <a href="catalog.php" class="btn btn-custom btn-sm">Annuler</a> <!-- bouton annuler qui mène vers la page catalog.php -->
         </form>
     </div>
 </body>

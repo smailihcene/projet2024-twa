@@ -17,52 +17,58 @@ if (!$rep) { //si la requête échoue
 <head>
     <meta charset="UTF-8">
     <title>Catalogue</title>
-    <!-- Bootstrap pour css -->
+    <!-- Inclure Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap pour JS --> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Inclure Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Inclure votre CSS personnalisé -->
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
-    <?php include "../navbar.php"; ?>  <!-- on inclut la bare de navigation --> 
+<?php include "../navbar.php"; ?> <!-- Barre de navigation -->
 
-    <div class="container mt-4">
-        <h1>Catalogue</h1>
-        <?php if ($_SESSION['role_name'] === 'editor') { ?>
-            <a class="btn btn-success mb-3" href="ajouter_catalog.php">
-            <!-- bouton pour ajouter un catalogue -->     
-                <i class="bi bi-plus-circle"></i> Ajouter un Catalogue
-            <!-- icon et texte pour le bouton --> 
-            </a> 
-        <?php } ?>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Description</th>
-                    <?php if ($_SESSION['role_name'] === 'editor') { ?> <!-- ajoute une colonne supplémentaire pour les ctions si l'utilisateurs est un éditeur --> 
-                        <th>Actions</th>
-                    <?php } ?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($catalog = mysqli_fetch_assoc($rep)) { ?>
-                    <tr>
-                        <td>
-                           <?= htmlspecialchars($catalog['name']); ?>
-                        </td>
-                        <td><?= htmlspecialchars($catalog['description']); ?></td>
-                        <?php if ($_SESSION['role_name'] === 'editor') { ?>  <!-- afficher les actions que pour l'éditeur --> 
-                            <td>
-                                <a href="editer_catalog.php?id=<?= $catalog['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
-                                <!-- lien vers la page de modification --> 
-                                <a href="supprimer_catalog.php?id=<?= $catalog['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer ce catalogue ?')">Supprimer</a>
-                                <!-- lien vers la page de suppression --> 
-                            </td>
-                        <?php } ?>
-                    </tr>
+<div class="container mt-4">
+    <h1>Catalogue</h1>
+    <?php if ($_SESSION['role_name'] === 'editor') { ?>
+        <a class="btn btn-custom mb-3" href="ajouter_catalog.php">
+            <i class="bi bi-plus-circle"></i> Ajouter un Catalogue
+        </a>
+    <?php } ?>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <?php if ($_SESSION['role_name'] === 'editor') { ?>
+                <th>Actions</th>
+            <?php } ?>
+        </tr>
+        </thead>
+        <tbody>
+        <?php while ($catalog = mysqli_fetch_assoc($rep)) { ?>
+            <tr>
+                <td><?= htmlspecialchars($catalog['name']); ?></td>
+                <td><?= htmlspecialchars($catalog['description']); ?></td>
+                <?php if ($_SESSION['role_name'] === 'editor') { ?>
+                    <td>
+                        <a href="editer_catalog.php?id=<?= $catalog['id']; ?>"
+                           class="btn btn-custom btn-sm">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="supprimer_catalog.php?id=<?= $catalog['id']; ?>"
+                           class="btn btn-custom btn-sm"
+                           onclick="return confirm('Voulez-vous vraiment supprimer ce catalogue ?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
                 <?php } ?>
-            </tbody>
-        </table>
-    </div>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<!-- Inclure Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

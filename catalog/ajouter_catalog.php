@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //vérifie si la méthode de reuqê
             $catalogId = mysqli_insert_id($con); 
 
             if (!empty($_POST['images']) && is_array($_POST['images'])) {  //on vérfie que l'image est bien selectionnée 
-                foreach ($_POST['images'] as $imageId => $position) {  //on parcoure les images  
+                foreach ($_POST['images'] as $imageId => $position) {  //on parcoure les images
                     $imageId = intval($imageId); //on vérifie que l'ID de l'image est un entier  
                     $position = intval($position);  //on vérifie que la position de l'image est un entier 
 
@@ -93,8 +93,8 @@ if (!$images) { //message d'erreur s'il ya un problème lors de  la récupérati
                 <?php } ?>
             </div>
 
-            <button type="submit" class="btn btn-success">Ajouter</button>  <!-- boutonpour soumettre le formulaire -->
-            <a href="catalog.php" class="btn btn-secondary">Annuler</a>  <!-- lien vers la page catalog.php quand on veut annuler -->
+            <button type="submit" class="btn btn-custom btn-sm">Ajouter</button>  <!-- boutonpour soumettre le formulaire -->
+            <a href="catalog.php" class="btn btn-custom btn-sm">Annuler</a>  <!-- lien vers la page catalog.php quand on veut annuler -->
         </form>
     </div>
 

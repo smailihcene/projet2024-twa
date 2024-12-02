@@ -24,7 +24,7 @@ $result = $mysqli->query($query);  // Exécuter la requête et récupérer les r
     <h2 class="text-primary">Formulaire d'inscription</h2> <!-- Titre de la page -->
 </header>
 <div class="d-flex justify-content-center align-items-center">
-    
+
     <div class="container2">
         <form action="inscription.php" method="post"> <!-- Formulaire d'inscription -->
             <!-- Champ pour le prénom -->
