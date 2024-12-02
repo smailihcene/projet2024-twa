@@ -72,8 +72,9 @@ while ($row = mysqli_fetch_assoc($result_catalogs)) {
     </section>
 
     <!-- Section Carousel des catalogues -->
-    <section class="container">
-        <h2 class="text-center">Carousel des Catalogues</h2>
+    <?php if ($_SESSION['role_name'] === 'non-editor') { ?>
+        <section class="container">
+        <h2 class="text-center">Catalogue disponible</h2>
 
         <?php if (empty($catalogs)): ?>
             <p class="text-center">Aucun catalogue trouvé.</p>
@@ -106,7 +107,7 @@ while ($row = mysqli_fetch_assoc($result_catalogs)) {
                                             <?php foreach ($catalog['images'] as $image): ?>
                                                 <div class="col-md-4">
                                                     <div class="card mb-4">
- <!-- Lien pour afficher les détails de l'image -->
+                                                        <!-- Lien pour afficher les détails de l'image -->
                                                         <a href="afficher_img_detail.php?id=<?= $image['image_id']; ?>">
                                                             <img src="<?= "images/" . $image['bank_dir'] . "/" . $image['image_name']; ?>"
                                                                  class="card-img-top"
@@ -140,6 +141,7 @@ while ($row = mysqli_fetch_assoc($result_catalogs)) {
             </div>
         <?php endif; ?>
     </section>
+    <?php } ?>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
