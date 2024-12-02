@@ -102,6 +102,7 @@ if (isset($_GET['id'])) {
                     <!-- Affichage des labels associés -->
                     <?php if (mysqli_num_rows($result_labels) > 0): ?>
                         <h6>Labels associés :</h6>
+                        <h7>Cliquez sur le polygone de votre choix pour afficher ses détails.</h7>
                         <ul class="list-group">
                             <?php while ($label = mysqli_fetch_assoc($result_labels)): ?>
                                 <li class="list-group-item">

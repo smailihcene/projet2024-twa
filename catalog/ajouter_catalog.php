@@ -9,33 +9,34 @@ if (!isset($_SESSION['login'])) {
 require('../db/connexion.php');
 
 // Traitement de l'ajout du catalogue
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = mysqli_real_escape_string($con, $_POST['name']);
-    $description = mysqli_real_escape_string($con, $_POST['description']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { //vérifie si la méthode de reuqête est POST 
+    $name = mysqli_real_escape_string($con, $_POST['name']); //sécurise l'entrée pour le champ 'name'
+    $description = mysqli_real_escape_string($con, $_POST['description']); //sécurise l'entrée pour le champ 'description'
     $userAccoundId = 1; // ID utilisateur (à ajuster selon votre logique)
 
-    if (!empty($name) && !empty($description)) {
-        // Insérer le nouveau catalogue
+    if (!empty($name) && !empty($description)) { //on vérifie si les champs ne sont pas vide 
+        // requête pour insérer le nouveau catalogue
         $query = "INSERT INTO catalog (userAccoundId, name, description) VALUES ('$userAccoundId', '$name', '$description')";
-        if (mysqli_query($con, $query)) {
+        if (mysqli_query($con, $query)) {  //execution de la requête 
             $catalogId = mysqli_insert_id($con); 
 
-            if (!empty($_POST['images']) && is_array($_POST['images'])) {
-                foreach ($_POST['images'] as $imageId => $position) {
-                    $imageId = intval($imageId);
-                    $position = intval($position);
+            if (!empty($_POST['images']) && is_array($_POST['images'])) {  //on vérfie que l'image est bien selectionnée 
+                foreach ($_POST['images'] as $imageId => $position) {  //on parcoure les images  
+                    $imageId = intval($imageId); //on vérifie que l'ID de l'image est un entier  
+                    $position = intval($position);  //on vérifie que la position de l'image est un entier 
 
+                    //donc on insère les images avce leur posiiton dan sla table 'CatalogImage'
                     $queryInsertImage = "INSERT INTO CatalogImage (catalogId, imageId, position) VALUES ('$catalogId', '$imageId', '$position')";
-                    mysqli_query($con, $queryInsertImage);
+                    mysqli_query($con, $queryInsertImage);  //execution de la requête 
                 }
             }
 
-            header("Location: catalog.php");
-            exit();
-        } else {
+            header("Location: catalog.php");  //après le succès redirection vers la page 'catalog.php'
+            exit(); //puis on arrete l'exécution du script 
+        } else { //message d'erreur en cas de problème 
             echo "Erreur lors de l'ajout : " . mysqli_error($con);
         }
-    } else {
+    } else {  //si il ya des champs qui sont vides 
         echo "Veuillez remplir tous les champs.";
     }
 }
@@ -43,9 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Charger les images disponibles pour l'affichage
 $query_images = "SELECT i.id AS image_id, b.dir AS bank_dir, i.name AS image_name, b.name AS bank_name
                  FROM image AS i 
-                 INNER JOIN bank AS b ON i.bankId = b.id;";
-$images = mysqli_query($con, $query_images);
-if (!$images) {
+                 INNER JOIN bank AS b ON i.bankId = b.id;"; //on récupère toutes les images disponibles dans la base de donnée 
+$images = mysqli_query($con, $query_images);  //exécution de la requête 
+if (!$images) { //message d'erreur s'il ya un problème lors de  la récupération de l'image 
     die("Erreur lors de la récupération des images : " . mysqli_error($con));
 }
 ?>
@@ -60,7 +61,7 @@ if (!$images) {
 
 </head>
 <body>
-    <?php include '../navbar.php'; ?>
+    <?php include '../navbar.php'; ?>  <!-- on ajoute la navbar -->
 
     <div class="container mt-4">
         <h1 class="mb-4">Ajouter un Catalogue</h1>
@@ -68,12 +69,12 @@ if (!$images) {
         <!-- Formulaire pour le catalogue -->
         <form action="ajouter_catalog.php" method="POST">
             <div class="mb-3">
-                <label for="name" class="form-label">Nom :</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <label for="name" class="form-label">Nom :</label>  <!-- label pour le nom -->
+                <input type="text" class="form-control" id="name" name="name" required> <!--champ pour la saisie pour le nom -->
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Description :</label>
-                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                <label for="description" class="form-label">Description :</label> <!--Label pour la descirption -->
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea> <!-- champe pour la saisie de la description -->
             </div>
 
             <!-- Section pour la sélection des images -->
@@ -86,19 +87,19 @@ if (!$images) {
                             alt="Image" 
                             class="img-thumbnail selectable-image" 
                             data-id="<?= $image['image_id']; ?>">
-                        <input type="hidden" name="images[<?= $image['image_id']; ?>]" class="image-order" disabled>
-                        <p class="position-label"></p>
+                        <input type="hidden" name="images[<?= $image['image_id']; ?>]" class="image-order" disabled>  <!-- champ pour la position de l'image qui est caché-->
+                        <p class="position-label"></p>  <!--étiquette pour afficher la position de l'image -->
                     </div>
                 <?php } ?>
             </div>
 
-            <button type="submit" class="btn btn-success">Ajouter</button>
-            <a href="catalog.php" class="btn btn-secondary">Annuler</a>
+            <button type="submit" class="btn btn-success">Ajouter</button>  <!-- boutonpour soumettre le formulaire -->
+            <a href="catalog.php" class="btn btn-secondary">Annuler</a>  <!-- lien vers la page catalog.php quand on veut annuler -->
         </form>
     </div>
 
     <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- inclusion du jQuery -->
+    <script src="../js/script.js"></script>  <!-- lien vers un script JS -->
 </body>
 </html>
