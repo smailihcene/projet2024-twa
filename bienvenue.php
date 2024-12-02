@@ -61,7 +61,7 @@ while ($row = mysqli_fetch_assoc($result_catalogs)) {
 
 <main>
     <!-- Section de bienvenue -->
-    <section class="container welcome-header">
+    <section class="container welcome-header text-center mt-3">
         <h1>Bienvenue, <?= htmlspecialchars($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?> !</h1>
         <p class="mt-3">Vous êtes connecté en tant que
             <strong><?= htmlspecialchars($_SESSION['role_name']); ?></strong>.

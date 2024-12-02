@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
     }
 
     // Requête SQL pour récupérer les labels associés à l'image
-    $query_labels = "SELECT name, description, points FROM label WHERE imageId = $image_id";
+    $query_labels = "SELECT name, description, points, html FROM label WHERE imageId = $image_id";
     $result_labels = mysqli_query($con, $query_labels);
 
     if (!$result_labels) {
@@ -48,6 +48,7 @@ if (isset($_GET['id'])) {
         $labels[] = [
             'name' => $label['name'],
             'description' => $label['description'],
+            'html' => $label['html'],
             'points' => $decoded_points,
         ];
     }
@@ -66,10 +67,16 @@ if (isset($_GET['id'])) {
     <style>
         .image-container {
             flex: 1;
+            position: relative;
         }
         .labels-container {
             flex: 2;
             margin-left: 20px;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
         }
     </style>
 </head>
@@ -81,35 +88,34 @@ if (isset($_GET['id'])) {
     <div class="row">
         <div class="col-md-4">
             <!-- Colonne pour l'image -->
-            <div class="image-container position-relative">
+            <div class="image-container">
                 <img
                         src="<?= "./images/" . htmlspecialchars($image['bank_dir']) . "/" . htmlspecialchars($image['image_name']); ?>"
                         alt="Image de la banque <?= htmlspecialchars($image['bank_name']); ?>"
                         class="img-fluid img-thumbnail"
                         id="image">
-
                 <!-- Canevas pour dessiner les points -->
-                <canvas id="pointsCanvas" class="position-absolute top-0 start-0"></canvas>
+                <canvas id="pointsCanvas"></canvas>
             </div>
         </div>
         <!-- Colonne pour les labels -->
         <div class="col-md-8">
             <div class="labels-container">
                 <div class="card-body">
-                    <h5 class="card-title"><?= htmlspecialchars($image['bank_name']); ?></h5>
+                    <h5 class="card-title">Banque : <?= htmlspecialchars($image['bank_name']); ?></h5>
                     <p class="card-text">Catalogue : <?= htmlspecialchars($image['catalog_name']); ?></p>
 
                     <!-- Affichage des labels associés -->
-                    <?php if (mysqli_num_rows($result_labels) > 0): ?>
-                        <h6>Labels associés :</h6>
-                        <h7>Cliquez sur le polygone de votre choix pour afficher ses détails.</h7>
+                    <?php if (!empty($labels)): ?>
+                        <h6><u>Labels associés :</u></h6>
+                        <p class="text-danger">Cliquez sur le polygone de votre choix pour afficher ses détails.</p>
                         <ul class="list-group">
-                            <?php while ($label = mysqli_fetch_assoc($result_labels)): ?>
+                            <?php foreach ($labels as $label): ?>
                                 <li class="list-group-item">
-                                    <strong><?= htmlspecialchars($label['name']); ?>
-                                        :</strong> <?= htmlspecialchars($label['description']); ?>
+                                    <strong><?= htmlspecialchars($label['name']); ?> :</strong>
+                                    <?= htmlspecialchars($label['description']); ?>
                                 </li>
-                            <?php endwhile; ?>
+                            <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
                         <p>Aucun label associé à cette image.</p>
@@ -123,7 +129,6 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -181,8 +186,6 @@ if (isset($_GET['id'])) {
                         x: point.x * scaleX,
                         y: point.y * scaleY
                     }));
-                } else {
-                    console.warn(`Points invalides ou insuffisants pour le label : ${label.name}`);
                 }
             });
         }
@@ -216,9 +219,10 @@ if (isset($_GET['id'])) {
                     // Afficher les informations du label dans la colonne de droite
                     const labelInfoDiv = document.getElementById("label-info");
                     labelInfoDiv.innerHTML = `
-                <h5>${label.name}</h5>
-                <p><strong>Description :</strong> ${label.description}</p>
-            `;
+                        <h5><strong>Nom du label :</strong> ${label.name}</h5>
+                        <p><strong>Description :</strong> ${label.description}</p>
+                        <p><strong>HTML :</strong> ${label.html}</p>
+                    `;
                 }
             });
         });
@@ -235,23 +239,12 @@ if (isset($_GET['id'])) {
                 }
             });
 
-            // Si la souris survole un polygone, changer le curseur
             canvas.style.cursor = isOverPolygon ? "pointer" : "default";
         });
 
-        // Initialisation après le chargement de l'image
+        // Charger les dimensions de l'image avant de dessiner
         image.onload = initializeCanvas;
-
-        // Si l'image est déjà chargée (au cas où l'événement onload se produirait trop tard)
-        if (image.complete) {
-            initializeCanvas();
-        } else {
-            image.onload = initializeCanvas;
-        }
     });
-
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
