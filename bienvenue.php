@@ -51,7 +51,8 @@ while ($row = mysqli_fetch_assoc($result_catalogs)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenue</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- Lier votre fichier CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header>
@@ -62,8 +63,8 @@ while ($row = mysqli_fetch_assoc($result_catalogs)) {
 <main>
     <!-- Section de bienvenue -->
     <section class="container welcome-header text-center mt-3">
-        <h1>Bienvenue, <?= htmlspecialchars($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?> !</h1>
-        <p class="mt-3">Vous êtes connecté en tant que
+        <h1 class="text-primary">Bienvenue, <?= htmlspecialchars($_SESSION['firstname'] . " " . $_SESSION['lastname']); ?> !</h1>
+        <p class="mt-3 text-dark">Vous êtes connecté en tant que
             <strong><?= htmlspecialchars($_SESSION['role_name']); ?></strong>.
         </p>
         <p>Description de votre rôle :
@@ -74,73 +75,73 @@ while ($row = mysqli_fetch_assoc($result_catalogs)) {
     <!-- Section Carousel des catalogues -->
     <?php if ($_SESSION['role_name'] === 'non-editor') { ?>
         <section class="container">
-        <h2 class="text-center">Catalogue disponible</h2>
+            <h2 class="text-center text-primary">Catalogue disponible</h2>
 
-        <?php if (empty($catalogs)): ?>
-            <p class="text-center">Aucun catalogue trouvé.</p>
-        <?php else: ?>
-            <div id="catalogCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <?php foreach (array_keys($catalogs) as $index => $catalog_id): ?>
-                        <button type="button" data-bs-target="#catalogCarousel" data-bs-slide-to="<?= $index; ?>"
-                                class="<?= $index === 0 ? 'active' : ''; ?>"
-                                aria-current="<?= $index === 0 ? 'true' : 'false'; ?>"
-                                aria-label="Slide <?= $index + 1; ?>"></button>
-                    <?php endforeach; ?>
-                </div>
+            <?php if (empty($catalogs)): ?>
+                <p class="text-center text-dark">Aucun catalogue trouvé.</p>
+            <?php else: ?>
+                <div id="catalogCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <?php foreach (array_keys($catalogs) as $index => $catalog_id): ?>
+                            <button type="button" data-bs-target="#catalogCarousel" data-bs-slide-to="<?= $index; ?>"
+                                    class="<?= $index === 0 ? 'active' : ''; ?>"
+                                    aria-current="<?= $index === 0 ? 'true' : 'false'; ?>"
+                                    aria-label="Slide <?= $index + 1; ?>"></button>
+                        <?php endforeach; ?>
+                    </div>
 
-                <div class="carousel-inner">
-                    <?php
-                    $is_first = true;
-                    foreach ($catalogs as $catalog): ?>
-                        <div class="carousel-item <?= $is_first ? 'active' : ''; ?>">
-                            <div class="card">
-                                <div class="card-header text-center bg-primary text-white">
-                                    <h2 class="mb-0"><?= $catalog['name']; ?></h2>
-                                </div>
-                                <div class="card-body">
-                                    <p><strong>Description :</strong> <?= $catalog['description']; ?></p>
+                    <div class="carousel-inner">
+                        <?php
+                        $is_first = true;
+                        foreach ($catalogs as $catalog): ?>
+                            <div class="carousel-item <?= $is_first ? 'active' : ''; ?>">
+                                <div class="card">
+                                    <div class="card-header text-center bg-custom text-white">
+                                        <h2 class="mb-0"><?= $catalog['name']; ?></h2>
+                                    </div>
+                                    <div class="card-body bg-light">
+                                        <p><strong>Description :</strong> <?= $catalog['description']; ?></p>
 
-                                    <?php if (!empty($catalog['images'])): ?>
-                                        <h3 class="mt-3">Images associées :</h3>
-                                        <div class="row">
-                                            <?php foreach ($catalog['images'] as $image): ?>
-                                                <div class="col-md-4">
-                                                    <div class="card mb-4">
-                                                        <!-- Lien pour afficher les détails de l'image -->
-                                                        <a href="afficher_img_detail.php?id=<?= $image['image_id']; ?>">
-                                                            <img src="<?= "images/" . $image['bank_dir'] . "/" . $image['image_name']; ?>"
-                                                                 class="card-img-top"
-                                                                 alt="<?= $image['image_name']; ?>">
-                                                        </a>
-                                                        <div class="card-body">
-                                                            <p class="card-text"><strong>Banque :</strong> <?= $image['bank_name']; ?></p>
+                                        <?php if (!empty($catalog['images'])): ?>
+                                            <h3 class="mt-3 text-primary">Images associées :</h3>
+                                            <div class="row">
+                                                <?php foreach ($catalog['images'] as $image): ?>
+                                                    <div class="col-md-4">
+                                                        <div class="card mb-4">
+                                                            <!-- Lien pour afficher les détails de l'image -->
+                                                            <a href="afficher_img_detail.php?id=<?= $image['image_id']; ?>">
+                                                                <img src="<?= "images/" . $image['bank_dir'] . "/" . $image['image_name']; ?>"
+                                                                     class="card-img-top"
+                                                                     alt="<?= $image['image_name']; ?>">
+                                                            </a>
+                                                            <div class="card-body">
+                                                                <p class="card-text text-dark"><strong>Banque :</strong> <?= $image['bank_name']; ?></p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        </div>
-                                    <?php else: ?>
-                                        <p>Aucune image trouvée pour ce catalogue.</p>
-                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php else: ?>
+                                            <p class="text-dark">Aucune image trouvée pour ce catalogue.</p>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php $is_first = false; ?>
-                    <?php endforeach; ?>
-                </div>
+                            <?php $is_first = false; ?>
+                        <?php endforeach; ?>
+                    </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#catalogCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-secondary" aria-hidden="true"></span>
-                    <span class="visually-hidden">Précédent</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#catalogCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-secondary" aria-hidden="true"></span>
-                    <span class="visually-hidden">Suivant</span>
-                </button>
-            </div>
-        <?php endif; ?>
-    </section>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#catalogCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon bg-secondary" aria-hidden="true"></span>
+                        <span class="visually-hidden">Précédent</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#catalogCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon bg-secondary" aria-hidden="true"></span>
+                        <span class="visually-hidden">Suivant</span>
+                    </button>
+                </div>
+            <?php endif; ?>
+        </section>
     <?php } ?>
 </main>
 

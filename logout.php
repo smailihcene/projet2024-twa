@@ -3,30 +3,30 @@
 session_start();
 
 // Détruire la session pour déconnecter l'utilisateur
-session_unset(); //supprime les varibales de la session mais conserve la session 
-session_destroy(); //ça détrit completement la session et permet de déconnecter l'utilisateur 
-
+session_unset(); // Supprime les variables de session mais conserve la session
+session_destroy(); // Détruit complètement la session
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">  <!-- le contenue principal de cette page en français -->
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Déconnexion</title>
+    <!-- Application du style CSS avec les couleurs du thème -->
     <link rel="stylesheet" href="css/style.css">
-    <meta http-equiv="refresh" content="url=index.php">
+    <!-- Redirection vers index.php après 3 secondes -->
+    <meta http-equiv="refresh" content="3; url=index.php">
 </head>
-<body>
-<section class = "container3">
+<body class="bg-custom">
+<section class="container3">
     <header>
-        <h1>Déconnexion réussie</h1>  <!-- lee titre principal de la page --> 
+        <h1 class="text-center text-primary">Déconnexion réussie</h1> <!-- Titre principal avec une couleur appropriée -->
     </header>
     <main>
-        <section class="container">
-            <p>Vous avez été déconnecté avec succès.</p>
-            <p>Pour se rediriger vers la page d'accueil, <a href="index.php">cliquez ici</a>.</p>
-            <!-- lien menant à la d'acceuil--> 
-            
+        <section class="container text-center">
+            <p class="text-success">Vous avez été déconnecté avec succès.</p>
+            <p>Vous allez être redirigé vers la page d'accueil. Si cela ne se produit pas, <a href="index.php" class="btn btn-custom">cliquez ici</a> pour revenir à l'accueil.</p>
+            <!-- Lien stylisé pour redirection -->
         </section>
     </main>
 </section>
