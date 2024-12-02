@@ -30,18 +30,23 @@ if (!$rep) {
 <head>
     <meta charset="UTF-8">
     <title>Gestion des étiquettes</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <?php include '../navbar.php'; ?>
 
 <div class="container mt-4">
-    <h1 class="mb-4">Liste des étiquettes</h1> <!-- tableau pour afficher les étiquettes --> 
+    <h1 class="mb-4">Liste des étiquettes</h1>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <!-- les différentes colonnes --> 
             <th>Image</th>
             <th>Nom</th>
             <th>Description</th>
@@ -52,15 +57,13 @@ if (!$rep) {
         </thead>
         <tbody>
         <?php while ($label = mysqli_fetch_assoc($rep)) { ?>
-            <!-- boucle pour afficher chq étiquette récupérée --> 
             <tr>
                 <!-- Colonne d'image -->
                 <td>
-                    <img src="<?= ".././images/" . htmlspecialchars($label['bank_dir']) . "/" . htmlspecialchars($label['image_name']); ?>"
+                    <img src="<?= "../images/" . htmlspecialchars($label['bank_dir']) . "/" . htmlspecialchars($label['image_name']); ?>"
                          alt="<?= htmlspecialchars($label['name']); ?>"
                          style="width: 100px; height: auto;"
                          class="img-thumbnail">
-                         <!-- on affiche en miniateure l'imaga associé -->
                 </td>
                 <!-- Nom -->
                 <td><?= htmlspecialchars($label['name']); ?></td>
@@ -73,9 +76,14 @@ if (!$rep) {
                 <!-- Actions -->
                 <td>
                     <!-- Modifier -->
-                    <a href="editer_label.php?id=<?= $label['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
+                    <a href="editer_label.php?id=<?= $label['id']; ?>" class="btn btn-custom btn-sm">
+                        <i class="bi bi-pencil"></i>
+                    </a>
                     <!-- Supprimer -->
-                    <a href="supprimer_label.php?id=<?= $label['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette étiquette ?')">Supprimer</a>
+                    <a href="supprimer_label.php?id=<?= $label['id']; ?>" class="btn btn-custom btn-sm"
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette étiquette ?')">
+                        <i class="bi bi-trash"></i>
+                    </a>
                 </td>
             </tr>
         <?php } ?>
