@@ -1,100 +1,168 @@
-/* Style global */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
 
+/* page login.php */
 body {
-    background-color: #f3f4f6;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    background-color: #f8f9fa!important; /* Fond légèrement gris pour le contraste */
 }
-
-/* En-tête */
-header {
-    width: 100%;
-    text-align: center;
-    padding: 2em;
-    background-color: #4a90e2;
-    color: #fff;
+.btn-custom {
+    background-color: #e7f1ff!important; /* Bleu clair */
+    color: #0056b3!important; /* Bleu foncé */
+    border: 1px solid #0056b3!important;
 }
-
-header h1 {
-    font-size: 2.5em;
-    font-weight: bold;
+.btn-custom:hover {
+    background-color: #cce4ff!important; /* Teinte encore plus claire au survol */
+    color: #003d80!important; /* Plus foncé pour le texte au survol */
 }
-
-header p {
-    font-size: 1.2em;
-}
-
-/* Section principale */
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2em;
-    width: 100%;
+.bg-custom {
+    background-color: #dbe9f5!important; /* Bleu pastel pour l'en-tête */
+    color: #003d80!important;
 }
 
 .container {
-    background-color: #fff;
-    padding: 2em;
-    border-radius: 8px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+}
+
+.container2{
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     width: 100%;
 }
 
-.container h2 {
-    color: #4a90e2;
-    margin-bottom: 1em;
+.container3{
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 10px;
+
 }
 
-.container p {
-    color: #666;
-    margin-bottom: 1em;
+.form-control {
+    border-radius: 10px;
+    margin-bottom: 15px;
 }
-
-/* Formulaires */
-form label {
-    display: block;
+.form-label {
     font-weight: bold;
-    color: #4a90e2;
-    margin: 1em 0 0.5em;
 }
 
-form input[type="text"],
-form input[type="password"] {
-    width: 100%;
-    padding: 0.8em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
-form .btn {
-    display: inline-block;
-    width: 100%;
-    padding: 0.8em;
-    font-size: 1em;
-    color: #fff;
-    background-color: #4a90e2;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+
+/* pour la selection d'image dans la page ajouter_catalog.php */
+.selectable-image {
     cursor: pointer;
+    transition: border 0.2s ease;
+}
+.selected {
+    border: 3px solid green;
+    opacity: 0.8;
+}
+.position-label {
+    font-weight: bold;
+    color: #007bff;
 }
 
-form .btn:hover {
-    background-color: #357ab8;
+
+/* Galerie d'images */
+.image-container {
+    position: relative;
+    display: inline-block;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+button#prevButton {
+    margin-right: 10px;
+}
+
+button#nextButton {
+    margin-left: 10px;
+}
+
+/* Informations sur l'image */
+#imageInfo {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Message d'erreur */
+.text-danger {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+body {
+    background-color: #f8f9fa; /* Fond légèrement gris pour le contraste */
+}
+.btn-custom {
+    background-color: #e7f1ff; /* Bleu clair */
+    color: #0056b3; /* Bleu foncé */
+    border: 1px solid #0056b3;
+}
+.btn-custom:hover {
+    background-color: #cce4ff; /* Teinte encore plus claire au survol */
+    color: #003d80; /* Plus foncé pour le texte au survol */
+}
+.bg-custom {
+    background-color: #dbe9f5; /* Bleu pastel pour l'en-tête */
+    color: #003d80;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+/* Section pour chaque banque */
+.bank-section {
+    margin-bottom: 30px;
+}
+
+/* En-tête pour chaque banque */
+.bank-header {
+    background-color: #dbe9f5!important; /* Bleu pastel */
+    color: #003d80!important; /* Bleu foncé */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #0056b3; /* Contour bleu foncé */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centrer le texte */
+    font-weight: bold; /* Rendre le texte plus visible */
+}
+
+/* Style des cartes contenant les images */
+.card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Miniatures d'images */
+.img-thumbnail {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.card-img-top {
+    border-radius: 5px 5px 0 0;
+}
+
+.card-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+canvas {
+    border: 1px solid black;
+}
